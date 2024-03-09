@@ -5,12 +5,8 @@
         <thead>
             <tr>
             <th scope="col">id</th>
-            <th scope="col">Фамилия</th>
-            <th scope="col">Имя</th>
-            <th scope="col">Отчество</th>
-            <th scope="col">Пол</th>
-            <th scope="col">Дата рождения</th>
-            <th scope="col">Почта</th>
+            <th scope="col">id Пользователя</th>
+            <th scope="col">Заблокирован</th>
             <th scope="col"></th>
             <th scope="col"></th>
             </tr>
@@ -20,17 +16,13 @@
             <th scope="row">
                 {{ customer.id }}
             </th>
-            <td>{{ customer.surname }}</td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.patronymic }}</td>
-            <td>{{ customer.gender }}</td>
-            <td>{{ customer.birthdate }}</td>
-            <td>{{ customer.email }}</td>
+            <td>{{ customer.user_id }}</td>
+            <td>{{ customer.is_banned }}</td>
             <td>
-                <button type="button" class="btn btn-warning btn-sm" @click="showUpdateDialog(customer)">Изменить</button>
+                <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(customer)">Детали</button>
             </td>
             <td>
-                <button type="button" class="btn btn-success btn-sm" @click="showMenuDialog(customer)">Удалить</button>
+                <button type="button" class="btn btn-danger btn-sm" @click="showMenuDialog(customer)">Удалить</button>
             </td>
             </tr>
         </tbody>

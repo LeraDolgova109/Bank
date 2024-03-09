@@ -6,27 +6,21 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Клиент</label>
+                    <label for="exampleFormControlInput1" class="form-label">Пользователь</label>
                     <select class="form-select" aria-label="Default select example" v-model="customer.user">
                         <option
                             v-for="user in users"
                             :key="user.id"
                             :value="user.id"
                         >
-                                {{ user.fullName }}
+                                {{ user.id + ". " + user.surname + " " + user.name + " " + user.patronymic}}
                         </option>
                     </select>
-                </div>
-                <div class="mb-3">
-                    <div class="mb-3">
-                    <label for="exampleFormControlInput5" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
-                </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-primary" @click="createCustomer" style="margin-left: 3px;">Создать клиента</button>
+                <button class="btn btn-primary" @click="createCustomer" style="margin-left: 3px;">Создать</button>
             </div>
         </div>
     </div>
@@ -34,7 +28,7 @@
 
 <script>
 export default {
-    name: "customer-create",
+    name: "staff-create",
     props:{
         show: {
             type: Boolean,
@@ -45,7 +39,6 @@ export default {
         return {
             customer: {
                 user: 1,
-                address: ""
             }
         }
     },

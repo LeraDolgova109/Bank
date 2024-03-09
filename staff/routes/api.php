@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'staffs'], function (){
+    Route::get('/', [\App\Http\Controllers\StaffController::class, 'index']);
+});
+
 // Route::group(['prefix' => 'user'], function (){
 //     Route::post('/register', [\App\Http\Controllers\UserController::class, 'register']);
 //     Route::get('/{user}', [\App\Http\Controllers\UserController::class, 'show']);

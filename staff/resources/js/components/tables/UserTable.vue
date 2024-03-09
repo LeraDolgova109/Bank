@@ -1,5 +1,5 @@
 <template>
-    <user-update v-model:show="dialogUpdate" v-model:user="selectedUser"/>
+    <user-update v-model:show="dialogUpdate" v-model:user="selectedUser" v-model:fullName="selectedFullName"/>
     <user-delete v-model:show="dialogDelete" v-model:user="selectedUser" v-model:fullName="selectedFullName"/>
     <table class="table">
         <thead>
@@ -52,6 +52,7 @@ export default {
         showUpdateDialog(user){
             this.dialogUpdate = !this.dialogUpdate;
             this.selectedUser = user;
+            this.selectedFullName = user.surname + " " + user.name + " " + user.patronymic;
         },
         showDeleteDialog(user){
             this.dialogDelete = !this.dialogDelete;

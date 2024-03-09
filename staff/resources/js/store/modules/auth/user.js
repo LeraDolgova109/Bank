@@ -12,12 +12,18 @@ export default {
             'phone': '+123456789',
             'confirm_phone': true,
             'passport_id': 1,
+            'passport': {
+                'id': 1,
+                'series': '0000',
+                'number': '123456',
+                'unitcode': '123-123',
+                'issue_date': '12.12.1999',
+                'issue_place': 'УМВД',
+                'residence_place': 'Томск'
+            },
             'email': 'qwerty',
             'password': '1111',
-        },
-        {
-
-        }]
+        }],
     },
     mutations: {
         setUsers(state, payload)
@@ -49,16 +55,17 @@ export default {
         },
         postUser(context, data)
         {
-            axios.post('', {
+            context.commit('addUser', data);
+            // axios.post('', {
 
-            }).then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('addUser', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
+            // }).then(response => {
+            //     if (response.status === 200)
+            //     {
+            //         context.commit('addUser', response.data);
+            //     }
+            // }).catch(error => {
+            //     console.log(error);
+            // })
         },
         updateUser(context, data)
         {

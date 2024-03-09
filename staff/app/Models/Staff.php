@@ -10,23 +10,20 @@ class Staff extends Model
 {
     use HasFactory;
 
+    protected $table = "staffs";
     protected $fillable = [
         'user_id',
         'roles',
         'is_banned',
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class, 'user_roles')->withTimestamps();;
+        return $this->belongsToMany(Role::class, 'staff_roles')->withTimestamps();;
     }
 
     public function active_ban()
     {
-        return Ban::query()->where('user_id', $this->id)
-            ->where(function ($query) {
-                $query->whereDate('end_time', '>=', Carbon::now())
-                    ->orWhere('end_time', null);
-            })->first();
+        return $this->belongsTo(Ban::class);
     }
 }

@@ -1,26 +1,28 @@
 <template>
-    <category-update v-model:show="dialogUpdate" v-model:category="selectedCategory"/>
-    <category-delete v-model:show="dialogDelete" v-model:category="selectedCategory"/>
+    <staff-update v-model:show="dialogUpdate" v-model:staff="selectedStaff"/>
+    <staff-delete v-model:show="dialogDelete" v-model:staff="selectedStaff"/>
     <table class="table">
         <thead>
             <tr>
             <th scope="col">id</th>
-            <th scope="col">Name</th>
+            <th scope="col">id Пользователя</th>
+            <th scope="col">Должность</th>
             <th scope="col"></th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="category in categories">
+            <tr v-for="staff in staffs">
             <th scope="row">
-                {{ category.id }}
+                {{ staff.id }}
             </th>
-            <td> {{ category.name }} </td>
+            <td> {{ staff.user_id }} </td>
+            <td> {{ staff.role[0].name }} </td>
             <td>
-                <button type="button" class="btn btn-warning" @click="showUpdateDialog(category)">Изменить</button>
+                <button type="button" class="btn btn-info" @click="showUpdateDialog(staff)">Детали</button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger" @click="showDeleteDialog(category)">Удалить</button>
+                <button type="button" class="btn btn-danger" @click="showDeleteDialog(staff)">Удалить</button>
             </td>
             </tr>
         </tbody>
@@ -34,22 +36,22 @@ export default {
         return {
             dialogUpdate: false,
             dialogDelete: false,
-            selectedCategory: null
+            selectedStaff: null
         }
     },
     methods: {
-        showUpdateDialog(category){
+        showUpdateDialog(staff){
             this.dialogUpdate = !this.dialogUpdate;
-            this.selectedCategory = category;
+            this.selectedStaff = staff;
         },
-        showDeleteDialog(category){
+        showDeleteDialog(staff){
             this.dialogDelete = !this.dialogDelete;
-            this.selectedCategory = category;
+            this.selectedStaff = staff;
         },
     },
     computed: {
-        categories() {
-            return this.$store.getters.getCategories;
+        staffs() {
+            return this.$store.getters.getStaffs;
         }
     }
 }

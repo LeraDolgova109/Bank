@@ -6,22 +6,65 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Пользователь</label>
-                    <select class="form-select" aria-label="Default select example" v-model="customer.user">
-                        <option
-                            v-for="user in users"
-                            :key="user.id"
-                            :value="user.id"
-                        >
-                                {{ user.fullName }}
-                        </option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <div class="mb-3">
-                    <label for="exampleFormControlInput5" class="form-label">Address</label>
+                    <label for="exampleFormControlInput5" class="form-label">Фамилия</label>
                     <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
                 </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Отчество</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Пол</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Дата рождения</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Место рождения</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Телефон</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Почта</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                </div>
+                <p class="d-inline-flex gap-1">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Паспорт
+                </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Серия</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Номер</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Код подразделения</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Дата выдачи</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput5" class="form-label">Кем выдан</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.address"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
@@ -56,7 +99,7 @@ export default {
         },
         createCustomer()
         {
-            this.$store.dispatch('postCustomer', this.customer);
+            this.$store.dispatch('postUser', this.customer);
             this.$emit('update:show', false);
         },
     },

@@ -22,9 +22,10 @@ export default {
     actions: {
         getStaffs(context)
         {
-            axios.get('').then(response => {
-                if (response.status === 200)
-                {
+            axios.get('/api/staffs')
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response.data)
                     context.commit('setStaffs', response.data);
                 }
             }).catch(error => {

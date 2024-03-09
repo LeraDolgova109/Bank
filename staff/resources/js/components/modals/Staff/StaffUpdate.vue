@@ -6,8 +6,8 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.fullName"/>
+                    <label for="exampleFormControlInput1" class="form-label"></label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff"/>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput5" class="form-label">Address</label>
