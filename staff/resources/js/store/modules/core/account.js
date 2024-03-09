@@ -1,7 +1,19 @@
 import axios from "axios";
 export default {
     state: {
-        accounts: []
+        accounts: [{
+            'id': 1,
+            'customer_id': 1,
+            'open_date': "01.01.2024",
+            'end_date': "12.01.2024",
+            'close_date': "13.01.2024",
+            'status': "Закрыт",
+            'type_id': 1,
+            'type': {
+                'name': 'Дебетовый'
+            },
+            'balance': 0,
+        }]
     },
     mutations: {
         setAccounts(state, payload)
@@ -22,14 +34,14 @@ export default {
     actions: {
         getAccounts(context)
         {
-            axios.get('').then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('setAccounts', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
+            // axios.get('').then(response => {
+            //     if (response.status === 200)
+            //     {
+            //         context.commit('setAccounts', response.data);
+            //     }
+            // }).catch(error => {
+            //     console.log(error);
+            // })
         },
         postAccount(context, data)
         {

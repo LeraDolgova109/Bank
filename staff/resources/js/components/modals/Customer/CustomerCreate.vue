@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: "staff-create",
+    name: "customer-create",
     props:{
         show: {
             type: Boolean,

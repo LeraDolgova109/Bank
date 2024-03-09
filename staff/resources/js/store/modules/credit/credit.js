@@ -1,7 +1,14 @@
 import axios from "axios";
 export default {
     state: {
-        credits: []
+        credits: [{
+            'id': 1,
+            'customer_id': 1,
+            'status': 'Закрыт',
+            'open_date': '01.01.2024',
+            'close_date': '02.01.2024',
+            'account_id': 1
+        }]
     },
     mutations: {
         setCredits(state, payload)
@@ -22,14 +29,14 @@ export default {
     actions: {
         getCredits(context)
         {
-            axios.get('').then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('setCredits', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
+            // axios.get('').then(response => {
+            //     if (response.status === 200)
+            //     {
+            //         context.commit('setCredits', response.data);
+            //     }
+            // }).catch(error => {
+            //     console.log(error);
+            // })
         },
         postCredit(context, data)
         {

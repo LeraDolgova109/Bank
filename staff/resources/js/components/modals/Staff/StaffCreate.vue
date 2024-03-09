@@ -17,6 +17,18 @@
                         </option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Роль</label>
+                    <select class="form-select" aria-label="Default select example" v-model="customer.role">
+                        <option
+                            v-for="role in roles"
+                            :key="role.id"
+                            :value="role.id"
+                        >
+                                {{ role.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
@@ -39,6 +51,7 @@ export default {
         return {
             customer: {
                 user: 1,
+                role: 1
             }
         }
     },
@@ -56,6 +69,9 @@ export default {
     computed: {
         users() {
             return this.$store.getters.getUsers;
+        },
+        roles() {
+            return this.$store.getters.getRoles;
         },
     }
 }

@@ -26,9 +26,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('getDishes');
-        this.$store.dispatch('getCategories');
-        this.$store.dispatch('getMenus');
+        this.$store.dispatch('getRates');
     }
 }
 </script>

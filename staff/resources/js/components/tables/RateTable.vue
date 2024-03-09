@@ -1,28 +1,28 @@
 <template>
-    <restaurant-update v-model:show="dialogUpdate" v-model:restaurant="selectedRestaurant"/>
-    <restaurant-delete v-model:show="dialogDelete" v-model:restaurant="selectedRestaurant"/>
+    <rate-update v-model:show="dialogUpdate" v-model:rate="selectedRate"/>
+    <rate-delete v-model:show="dialogDelete" v-model:rate="selectedRate"/>
     <table class="table">
         <thead>
             <tr>
             <th scope="col">id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Address</th>
+            <th scope="col">Название</th>
+            <th scope="col">Процент</th>
             <th scope="col"></th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="restaurant in restaurants">
+            <tr v-for="rate in rates">
             <th scope="row">
-                {{ restaurant.id }}
+                {{ rate.id }}
             </th>
-            <td>{{ restaurant.name }}</td>
-            <td>{{ restaurant.address }}</td>
+            <td>{{ rate.name }}</td>
+            <td>{{ rate.rate }}</td>
             <td>
-                <button type="button" class="btn btn-warning" @click="showUpdateDialog(restaurant)">Изменить</button>
+                <button type="button" class="btn btn-warning" @click="showUpdateDialog(rate)">Изменить</button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger" @click="showDeleteDialog(restaurant)">Удалить</button>
+                <button type="button" class="btn btn-danger" @click="showDeleteDialog(rate)">Удалить</button>
             </td>
             </tr>
         </tbody>
@@ -36,22 +36,22 @@ export default {
         return {
             dialogUpdate: false,
             dialogDelete: false,
-            selectedRestaurant: null
+            selectedRate: null
         }
     },
     methods: {
-        showUpdateDialog(restaurant){
+        showUpdateDialog(rate){
             this.dialogUpdate = !this.dialogUpdate;
-            this.selectedRestaurant = restaurant;
+            this.selectedRate = rate;
         },
-        showDeleteDialog(restaurant){
+        showDeleteDialog(rate){
             this.dialogDelete = !this.dialogDelete;
-            this.selectedRestaurant = restaurant;
+            this.selectedRate = rate;
         },
     },
     computed: {
-        restaurants() {
-            return this.$store.getters.getRestaurants;
+        rates() {
+            return this.$store.getters.getRates;
         }
     }
 }

@@ -1,6 +1,7 @@
 import {createStore} from 'vuex';
 import staff from './modules/staff/staff.js';
 import ban_staff from './modules/staff/ban.js';
+import role from './modules/staff/role.js';
 import account from './modules/core/account.js';
 import customer from './modules/core/customer.js';
 import transaction from './modules/core/transaction.js';
@@ -19,7 +20,8 @@ const store = createStore({
       transaction,
       ban,
       rate,
-      credit 
+      credit,
+      role
   }
 })
 

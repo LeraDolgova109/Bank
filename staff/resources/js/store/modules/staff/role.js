@@ -1,77 +1,70 @@
 import axios from "axios";
 export default {
     state: {
-        transactions: [{
-            'id': 1,
-            'account_id': 1,
-            'type': 'Перевод',
-            'status': 'Успешно',
-            'amount': 1000,
-            'add_info':  "Перевод на карту",
-            'success_datetime': "01.01.2024"
-        }]
+        roles: []
     },
     mutations: {
-        setTransactions(state, payload)
+        setRoles(state, payload)
         {
-            state.transactions = payload
+            state.roles = payload
         },
-        addTransaction(state, payload)
+        addRole(state, payload)
         {
-            state.transactions.push(payload)
+            state.roles.push(payload)
         }
     },
     getters: {
-        getTransactions(state)
+        getRoles(state)
         {
-            return state.transactions
+            return state.roles
         }
     },
     actions: {
-        getTransactions(context)
+        getRoles(context)
         {
-            axios.get('').then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('setTransactions', response.data);
+            axios.get('/api/roles')
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response.data)
+                    context.commit('setRoles', response.data);
                 }
             }).catch(error => {
                 console.log(error);
             })
         },
-        postTransaction(context, data)
+        postRole(context, data)
         {
             axios.post('', {
 
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('addTransaction', response.data);
+                    context.commit('addRole', response.data);
                 }
             }).catch(error => {
                 console.log(error);
             })
         },
-        updateTransaction(context, data)
+        updateRole(context, data)
         {
             axios.put('' + data.id, {
                 
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getTransactions');
+                    context.dispatch('getRoles');
                 }
             }).catch(error => {
                 console.log(error);
             })
         },
-        deleteTransaction(context, data)
+        deleteRole(context, data)
         {
             axios.delete('' + data.id
             ).then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getTransactions');
+                    context.dispatch('getRoles');
                 }
             }).catch(error => {
                 console.log(error);

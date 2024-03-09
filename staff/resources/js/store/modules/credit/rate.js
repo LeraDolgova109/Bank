@@ -1,7 +1,16 @@
 import axios from "axios";
 export default {
     state: {
-        rates: []
+        rates: [{
+            'id': 1,
+            'name': 'Весенний',
+            'rate': 20
+        },
+        {
+            'id': 2,
+            'name': 'Летний',
+            'rate': 30
+        }]
     },
     mutations: {
         setRates(state, payload)
@@ -22,14 +31,14 @@ export default {
     actions: {
         getRates(context)
         {
-            axios.get('').then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('setRates', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
+            // axios.get('').then(response => {
+            //     if (response.status === 200)
+            //     {
+            //         context.commit('setRates', response.data);
+            //     }
+            // }).catch(error => {
+            //     console.log(error);
+            // })
         },
         postRate(context, data)
         {

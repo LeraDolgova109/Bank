@@ -1,21 +1,30 @@
 <template>
-    <category-update v-model:show="dialogUpdate" v-model:category="selectedCategory"/>
-    <category-delete v-model:show="dialogDelete" v-model:category="selectedCategory"/>
+    <transaction-info v-model:show="dialogUpdate" v-model:transactions="selectedCredit"/>
     <table class="table">
         <thead>
             <tr>
             <th scope="col">id</th>
-            <th scope="col">Name</th>
-            <th scope="col"></th>
+            <th scope="col">id Пользователя</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Дата открытия</th>
+            <th scope="col">Дата закрытия</th>
+            <th scope="col">Счёт</th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="category in categories">
+            <tr v-for="credit in credits">
             <th scope="row">
-                {{ category.id }}
+                {{ credit.id }}
             </th>
-            <td> {{ category.name }} </td>
+            <td> {{ credit.customer_id }} </td>
+            <td> {{ credit.status }} </td>
+            <td> {{ credit.open_date }} </td>
+            <td> {{ credit.close_date }} </td>
+            <td> {{ credit.account_id }} </td>
+            <td>
+                <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(customer)">Операции</button>
+            </td>
             </tr>
         </tbody>
     </table>
@@ -28,22 +37,22 @@ export default {
         return {
             dialogUpdate: false,
             dialogDelete: false,
-            selectedCategory: null
+            selectedCredit: null
         }
     },
     methods: {
-        showUpdateDialog(category){
+        showUpdateDialog(credit){
             this.dialogUpdate = !this.dialogUpdate;
-            this.selectedCategory = category;
+            this.selectedCredit = credit;
         },
-        showDeleteDialog(category){
+        showDeleteDialog(credit){
             this.dialogDelete = !this.dialogDelete;
-            this.selectedCategory = category;
+            this.selectedCredit = credit;
         },
     },
     computed: {
-        categories() {
-            return this.$store.getters.getCategories;
+        credits() {
+            return this.$store.getters.getCredits;
         }
     }
 }

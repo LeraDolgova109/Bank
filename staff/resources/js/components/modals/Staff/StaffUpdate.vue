@@ -5,14 +5,7 @@
                 Редактирование сотрудника
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label"></label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff"/>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput5" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.customer.address"/>
-                </div>
+                
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
@@ -30,7 +23,7 @@ export default {
                 type: Boolean,
                 default: false
             },
-            customer: {
+            staff: {
                 type: Object
             }
         },

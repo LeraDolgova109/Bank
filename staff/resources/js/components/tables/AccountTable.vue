@@ -1,25 +1,32 @@
 <template>
-    <menu-update v-model:show="dialogUpdate" v-model:menu="selectedMenu"/>
-    <menu-delete v-model:show="dialogDelete" v-model:menu="selectedMenu"/>
+    <transaction-info v-model:show="dialogUpdate" v-model:account="selectedAccount"/>
     <table class="table">
         <thead>
             <tr>
             <th scope="col">id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Descritption</th>
-            <th scope="col">Restaurant</th>
-            <th scope="col"></th>
+            <th scope="col">id Клиента</th>
+            <th scope="col">Дата открытия</th>
+            <th scope="col">Дата закрытия</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Баланс</th>
             <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="menu in menus">
+            <tr v-for="account in accounts">
             <th scope="row">
-                {{ menu.id }}
+                {{ account.id }}
             </th>
-            <td>{{ menu.name }}</td>
-            <td>{{ menu.description }}</td>
-            <td>{{ menu.restaurant_id }}</td>
+            <td>{{ account.customer_id }}</td>
+            <td>{{ account.open_date }}</td>
+            <td>{{ account.end_date }}</td>
+            <td>{{ account.status }}</td>
+            <td>{{ account.type.name }}</td>
+            <td>{{ account.balance }}</td>
+            <td>
+                <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(customer)">Операции</button>
+            </td>
             </tr>
         </tbody>
     </table>
@@ -32,22 +39,22 @@ export default {
         return {
             dialogUpdate: false,
             dialogDelete: false,
-            selectedMenu: null
+            selectedAccount: null
         }
     },
     methods: {
-        showUpdateDialog(menu){
+        showUpdateDialog(account){
             this.dialogUpdate = !this.dialogUpdate;
-            this.selectedMenu = menu;
+            this.selectedAccount = account;
         },
-        showDeleteDialog(menu){
+        showDeleteDialog(account){
             this.dialogDelete = !this.dialogDelete;
-            this.selectedMenu = menu;
+            this.selectedAccount = account;
         },
     },
     computed: {
-        menus() {
-            return this.$store.getters.getMenus;
+        accounts() {
+            return this.$store.getters.getAccounts;
         }
     }
 }

@@ -19,6 +19,8 @@ import StaffDelete from "./modals/Staff/StaffDelete.vue";
 import UserCreate from "./modals/User/UserCreate.vue";
 import UserUpdate from "./modals/User/UserUpdate.vue";
 import UserDelete from "./modals/User/UserDelete.vue";
+import TransactionInfo from "./modals/Transaction/TransactionInfo.vue";
+
 
 export default [
     Navbar,
@@ -41,5 +43,6 @@ export default [
     StaffDelete,
     UserCreate,
     UserUpdate,
-    UserDelete
+    UserDelete,
+    TransactionInfo
 ]

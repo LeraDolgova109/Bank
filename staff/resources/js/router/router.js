@@ -36,6 +36,10 @@ const routes = [
         path: '/rates',
         component: Rate
     },
+    {
+        path: '/logout',
+        component: Main
+    },
 ]
 
 const router = createRouter({

@@ -25,6 +25,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch('getStaffs');
+        this.$store.dispatch('getRoles');
     }
 }
 </script>
