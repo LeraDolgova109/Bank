@@ -17,6 +17,7 @@ class AccountResource extends JsonResource
             'status' => $this->status,
             'type' => $this->type->slug,
             'balance' => $this->balance,
+            'transactions' => TransactionResource::collection($this->transactions)
         ];
     }
 }
