@@ -13,17 +13,17 @@ class Staff extends Model
     protected $table = "staffs";
     protected $fillable = [
         'user_id',
-        'role',
+        'role_id',
         'is_banned',
     ];
 
     public function role()
     {
-        return $this->belongsToMany(Role::class, 'staff_roles')->withTimestamps();;
+        return $this->belongsTo(Role::class);
     }
 
     public function ban()
     {
-        return $this->belongsTo(Ban::class);
+        return $this->hasOne(Ban::class);
     }
 }

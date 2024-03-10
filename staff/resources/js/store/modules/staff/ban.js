@@ -31,36 +31,11 @@ export default {
                 console.log(error);
             })
         },
-        postStaffBan(context, data)
-        {
-            axios.post('', {
-
-            }).then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('addStaffBan', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
         updateStaffBan(context, data)
         {
             axios.put('' + data.id, {
                 
             }).then(response => {
-                if (response.status === 200)
-                {
-                    context.dispatch('getStaffBans');
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-        deleteStaffBan(context, data)
-        {
-            axios.delete('' + data.id
-            ).then(response => {
                 if (response.status === 200)
                 {
                     context.dispatch('getStaffBans');

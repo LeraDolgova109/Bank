@@ -23,6 +23,6 @@ Route::group(['prefix' => 'roles'], function (){
     Route::get('/', [\App\Http\Controllers\RoleController::class, 'index']);
 });
 Route::group(['prefix' => 'bans'], function (){
-    Route::put('/ban', [\App\Http\Controllers\BanController::class, 'ban']);
-    Route::put('/unban', [\App\Http\Controllers\BanController::class, 'unban']);
+    Route::post('/ban/{staff}', [\App\Http\Controllers\BanController::class, 'ban']);
+    Route::delete('/unban/{staff}', [\App\Http\Controllers\BanController::class, 'unban']);
 });

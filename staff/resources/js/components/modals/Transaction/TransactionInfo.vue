@@ -1,6 +1,6 @@
 <template>
     <div v-if="show === true">
-        <h4 class="bold">Операции акаунта #{{ account.id }}</h4>
+        <h4 class="bold">Операции счёта #{{ account.id }}</h4>
         <table class="table">
         <thead>
             <tr>

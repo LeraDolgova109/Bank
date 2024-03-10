@@ -14,4 +14,9 @@ class Ban extends Model
         'reason',
         'end_time',
     ];
+
+    public function staff()
+    {
+        return $this->hasOne(Staff::class);
+    }
 }

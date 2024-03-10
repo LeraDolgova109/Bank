@@ -5,22 +5,19 @@
                 Редактирование сотрудника
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Блокировка</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff.is_banned"/>
+                <div class="mb-3">Статус:
+                    <span class="fw-bold">Заблокирован</span>
                 </div>
-                <div class="mb-3" v-if='staff.is_banned==1'>
-                    <label for="exampleFormControlInput1" class="form-label">Причина</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff.ban.reason"/>
+                <div class="mb-3">Причина:
+                    <span class="fw-bold">{{ staff.ban.reason }}</span>
                 </div>
-                <div class="mb-3" v-if='staff.is_banned==1'>
-                    <label for="exampleFormControlInput1" class="form-label">Окочнание времени</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff.ban.end_time"/>
+                <div class="mb-3">Окочнание времени:
+                    <span class="fw-bold">{{ staff.ban.end_time }}</span>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-warning" @click="updateCustomer" style="margin-left: 3px;">Редактировать</button>
+                <button class="btn btn-warning" @click="updateStaff" style="margin-left: 3px;">Разблокировать</button>
             </div>
         </div>
     </div>
@@ -34,13 +31,13 @@ export default {
                 type: Boolean,
                 default: false
             },
-            staff: {
+            staff:{
                 type: Object
             }
         },
         data() {
             return {
-
+                
             }
         },
         methods: {
@@ -48,9 +45,9 @@ export default {
             {
                 this.$emit('update:show', false);
             },
-            updateCustomer()
+            updateStaff()
             {
-                this.$store.dispatch('updateCustomer', this.customer.customer);
+                this.$store.dispatch('deleteStaffBan', this.staff);
                 this.$emit('update:show', false);
             }
         }

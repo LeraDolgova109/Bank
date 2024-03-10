@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Ban;
-use App\Models\User;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
 class BanService
@@ -20,20 +20,20 @@ class BanService
 
     public function ban(Request $request)
     {
-        $user = User::find($request->user_id);
+        $staff = Staff::find($request->staff_id);
         $ban = Ban::create([
-            'user_id' => $request->user_id,
+            'staff_id' => $request->staff_id,
             'reason' => $request->reason,
             'end_time' => $request->end_time
         ]);
-        $user->update(['is_banned' => true]);
+        $staff->update(['is_banned' => true]);
         return true;
     }
 
-    function unban(Request $request){
-        $user = User::find($request->user_id);
-        $ban = Ban::where(['user_id', '=', $user->id])->delete();
-        $user->update(['is_banned' => false]);
+    function unban($id){
+        $staff = Staff::find($id);
+        $ban = Ban::where('staff_id', '=', $staff->id)->delete();
+        $staff->update(['is_banned' => false]);
         return true;
     }
 }

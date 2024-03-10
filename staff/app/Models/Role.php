@@ -13,4 +13,10 @@ class Role extends Model
         'staff_id',
         'role_id',
     ];
+
+    public function staff()
+    {
+        return $this->hasMany(Staff::class);
+    }
+
 }

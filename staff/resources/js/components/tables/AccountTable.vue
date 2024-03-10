@@ -19,7 +19,7 @@
             <td>{{ account.open_date }}</td>
             <td>{{ account.end_date }}</td>
             <td>{{ account.status }}</td>
-            <td>{{ account.type.name }}</td>
+            <td>{{ account.type }}</td>
             <td>{{ account.balance }}</td>
             <td>
                 <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(account)">Операции</button>

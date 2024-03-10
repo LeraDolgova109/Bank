@@ -25,18 +25,15 @@ class StaffService
     {
         $staff = Staff::create([
             'user_id' => $request->user_id,
-            'is_banned' => false
+            'role_id' => $request->role_id,    
+            'is_banned' => false,  
         ]);
-        $role = [
-            'role_id' => $request->role_id  
-        ];
-        $staff->role()->attach($role);
-        return $staff->with('role');
+        return $staff;
     }
 
     function delete($id) { 
         $staff = Staff::with('role')->find($id);
-        $staff->role()->detach($staff->role[0]->id);
+        $staff->role()->detach($staff->role->id);
         $staff->delete();
         return true;
     }

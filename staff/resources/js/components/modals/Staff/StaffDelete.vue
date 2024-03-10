@@ -2,15 +2,21 @@
     <div class="dialog container" v-if="show === true" >
         <div class="card" style="width: 35rem;">
             <div class="card-header">
-                Удаление сотрудника
+                Блокировка сотрудника #{{ staff.id }}
             </div>
             <div class="card-body">
-                <span>Подтвердите удаление сотрудника
-                </span>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Причина</label>
+                    <textarea type="text" class="form-control" id="exampleFormControlInput1" v-model="ban.reason"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Окочнание времени</label>
+                    <input type="date" class="form-control" id="exampleFormControlInput1" v-model="ban.end_time"/>
+                </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-danger" @click="deleteStaff" style="margin-left: 3px;">Удалить</button>
+                <button class="btn btn-danger" @click="deleteStaff" style="margin-left: 3px;">Заблокировать</button>
             </div>
         </div>
     </div>
@@ -30,7 +36,10 @@ export default {
     },
     data() {
         return {
-            
+            ban: {
+                reason: '',
+                end_time: ''
+            }
         }
     },
     methods: {
@@ -40,7 +49,7 @@ export default {
         },
         deleteStaff()
         {
-            this.$store.dispatch('deleteStaff', this.staff.id);
+            this.$store.dispatch('postStaffBan', {'staff': this.staff, 'ban': this.ban});
             this.$emit('update:show', false);
         }
     }

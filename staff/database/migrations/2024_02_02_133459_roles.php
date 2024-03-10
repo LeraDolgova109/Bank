@@ -18,12 +18,6 @@ return new class extends Migration
             $table->string('description');
             $table->timestamps();
         });
-
-        Schema::create('staff_roles', function (Blueprint $table) {
-            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\Staff::class)->cascadeOnDelete();
-            $table->timestamps();
-        });
     }
 
     /**

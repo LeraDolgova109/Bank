@@ -34,9 +34,9 @@ class BanController extends Controller
             return response() -> json('OK');
     }
  
-    public function unban(Request $request)
+    public function unban($id)
     {
-        if ($this->banService->unban($request))
+        if ($this->banService->unban($id))
             return response() -> json('OK');
     }
 }

@@ -40,7 +40,7 @@ export default {
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('addStaff', response.data);
+                    context.dispatch('getStaffs');
                 }
             }).catch(error => {
                 console.log(error);
@@ -62,6 +62,33 @@ export default {
         deleteStaff(context, data)
         {
             axios.delete('/api/staffs/' + data.id
+            ).then(response => {
+                if (response.status === 200)
+                {
+                    context.dispatch('getStaffs');
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        postStaffBan(context, data)
+        {
+            axios.post('/api/bans/ban/' + data.staff.id, {
+                'staff_id': data.staff.id,
+                'reason': data.ban.reason,
+                'end_time': data.ban.end_time
+            }).then(response => {
+                if (response.status === 200)
+                {
+                    context.dispatch('getStaffs');
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        deleteStaffBan(context, data)
+        {
+            axios.delete('api/bans/unban/' + data.id
             ).then(response => {
                 if (response.status === 200)
                 {

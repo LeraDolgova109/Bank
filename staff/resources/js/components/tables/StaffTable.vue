@@ -17,12 +17,12 @@
                 {{ staff.id }}
             </th>
             <td> {{ staff.user_id }} </td>
-            <td> {{ staff.role[0].name }} </td>
+            <td> {{ staff.role.name }} </td>
             <td>
-                <button type="button" class="btn btn-info" @click="showUpdateDialog(staff)">Детали</button>
+                <button type="button" class="btn btn-info" @click="showUpdateDialog(staff)" v-if='staff.is_banned==1'>Блокировка</button>
             </td>
             <td>
-                <button type="button" class="btn btn-danger" @click="showDeleteDialog(staff)">Удалить</button>
+                <button type="button" class="btn btn-danger" @click="showDeleteDialog(staff)" v-if='staff.is_banned==0'>Заблокировать</button>
             </td>
             </tr>
         </tbody>
