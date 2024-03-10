@@ -13,7 +13,7 @@ class CustomerResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'is_banned' => $this->is_banned,
-            'accounts' => AccountResource::collection($this->accounts),
+            'accounts' => AccountShortResource::collection($this->accounts),
         ];
     }
 }
