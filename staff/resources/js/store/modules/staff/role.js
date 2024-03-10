@@ -25,7 +25,6 @@ export default {
             axios.get('/api/roles')
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data)
                     context.commit('setRoles', response.data);
                 }
             }).catch(error => {

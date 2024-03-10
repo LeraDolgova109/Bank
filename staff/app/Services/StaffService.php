@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Models\Staff;
-use App\Services\ServiceInterface;
+use Illuminate\Http\Request;
 
-class StaffService implements ServiceInterface
+
+class StaffService
 {
     function get_all()
     {
@@ -15,16 +17,28 @@ class StaffService implements ServiceInterface
 
     public function get($id)
     {
-        $staff = Staff::with(['role', 'active_ban'])->get();
+        $staff = Staff::with(['role', 'active_ban'])->where(['id', '=', $id])->get();
         return $staff;
     }
 
-    public function create()
+    public function create(Request $request)
     {
-
+        $staff = Staff::create([
+            'user_id' => $request->user_id,
+            'is_banned' => false
+        ]);
+        $role = [
+            'role_id' => $request->role_id  
+        ];
+        $staff->role()->attach($role);
+        return $staff->with('role');
     }
 
-    function delete() {
+    function delete($id) { 
+        $staff = Staff::with('role')->find($id);
+        $staff->role()->detach($staff->role[0]->id);
+        $staff->delete();
+        return true;
     }
 
     function update() {

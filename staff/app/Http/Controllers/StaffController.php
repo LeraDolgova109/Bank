@@ -24,9 +24,10 @@ class StaffController extends Controller
     
    }
 
-   public function store()
+   public function store(Request $request)
    {
-    
+      $staff = $this->staffService->create($request);
+      return response() -> json($staff);
    }
 
    public function update()
@@ -34,8 +35,9 @@ class StaffController extends Controller
     
    }
 
-   public function delete()
+   public function delete($id)
    {
-    
+      if ($this->staffService->delete($id))
+         return response() -> json("OK");
    }
 }

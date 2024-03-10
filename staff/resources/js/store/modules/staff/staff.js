@@ -25,6 +25,7 @@ export default {
             axios.get('/api/staffs')
             .then(response => {
                 if (response.status === 200) {
+                    console.log(response.data)
                     context.commit('setStaffs', response.data);
                 }
             }).catch(error => {
@@ -33,8 +34,9 @@ export default {
         },
         postStaff(context, data)
         {
-            axios.post('', {
-
+            axios.post('/api/staffs', {
+                'user_id': data.user,
+                'role_id': data.role
             }).then(response => {
                 if (response.status === 200)
                 {
@@ -59,7 +61,7 @@ export default {
         },
         deleteStaff(context, data)
         {
-            axios.delete('' + data.id
+            axios.delete('/api/staffs/' + data.id
             ).then(response => {
                 if (response.status === 200)
                 {

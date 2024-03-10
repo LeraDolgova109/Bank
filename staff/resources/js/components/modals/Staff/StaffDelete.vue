@@ -6,12 +6,11 @@
             </div>
             <div class="card-body">
                 <span>Подтвердите удаление сотрудника
-                    <span class="fw-bold">{{ customer.fullName }}</span>
                 </span>
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-danger" @click="deleteCustomer" style="margin-left: 3px;">Удалить</button>
+                <button class="btn btn-danger" @click="deleteStaff" style="margin-left: 3px;">Удалить</button>
             </div>
         </div>
     </div>
@@ -25,11 +24,8 @@ export default {
             type: Boolean,
             default: false
         },
-        customer: {
+        staff: {
             type: Object,
-            fullName: {
-                type: String
-            }
         }
     },
     data() {
@@ -42,9 +38,9 @@ export default {
         {
             this.$emit('update:show', false);
         },
-        deleteCustomer()
+        deleteStaff()
         {
-            this.$store.dispatch('deleteCustomer', this.customer.customer);
+            this.$store.dispatch('deleteStaff', this.staff.id);
             this.$emit('update:show', false);
         }
     }

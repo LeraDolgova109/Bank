@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Role;
-use App\Services\ServiceInterface;
+use Illuminate\Http\Request;
 
-class RoleService implements ServiceInterface
+
+class RoleService
 {
     function get_all()
     {
@@ -18,7 +19,7 @@ class RoleService implements ServiceInterface
         
     }
 
-    public function create()
+    public function create(Request $request)
     {
 
     }

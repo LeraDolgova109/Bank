@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BanService;
 use Illuminate\Http\Request;
 
 class BanController extends Controller
 {
-    public function index()
+    protected $banService;
+    public function __construct(BanService $banService)
     {
- 
+        $this->banService = $banService;
     }
+
+   public function index()
+   {
+      
+   }
  
     public function show()
     {
@@ -21,13 +28,15 @@ class BanController extends Controller
      
     }
  
-    public function update()
+    public function ban(Request $request)
     {
-     
+        if ($this->banService->ban($request))
+            return response() -> json('OK');
     }
  
-    public function delete()
+    public function unban(Request $request)
     {
-     
+        if ($this->banService->unban($request))
+            return response() -> json('OK');
     }
 }

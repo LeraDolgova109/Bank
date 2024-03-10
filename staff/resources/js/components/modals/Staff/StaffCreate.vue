@@ -7,19 +7,19 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Пользователь</label>
-                    <select class="form-select" aria-label="Default select example" v-model="customer.user">
+                    <select class="form-select" aria-label="Default select example" v-model="staff.user">
                         <option
                             v-for="user in users"
                             :key="user.id"
                             :value="user.id"
                         >
-                                {{ user.id }}
+                            {{ user.id + ". " + user.surname + " " + user.name + " " + user.patronymic}}
                         </option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Роль</label>
-                    <select class="form-select" aria-label="Default select example" v-model="customer.role">
+                    <select class="form-select" aria-label="Default select example" v-model="staff.role">
                         <option
                             v-for="role in roles"
                             :key="role.id"
@@ -32,7 +32,7 @@
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-primary" @click="createCustomer" style="margin-left: 3px;">Создать</button>
+                <button class="btn btn-primary" @click="createStaff" style="margin-left: 3px;">Создать</button>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@ export default {
     },
     data() {
         return {
-            customer: {
+            staff: {
                 user: 1,
                 role: 1
             }
@@ -60,9 +60,9 @@ export default {
         {
             this.$emit('update:show', false);
         },
-        createCustomer()
+        createStaff()
         {
-            this.$store.dispatch('postCustomer', this.customer);
+            this.$store.dispatch('postStaff', this.staff);
             this.$emit('update:show', false);
         },
     },
