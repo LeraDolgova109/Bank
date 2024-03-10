@@ -9,11 +9,11 @@
                     <label for="exampleFormControlInput1" class="form-label">Блокировка</label>
                     <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff.is_banned"/>
                 </div>
-                <div class="mb-3" v-if='staff.is_banned'>
+                <div class="mb-3" v-if='staff.is_banned==1'>
                     <label for="exampleFormControlInput1" class="form-label">Причина</label>
                     <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff.ban.reason"/>
                 </div>
-                <div class="mb-3" v-if='staff.is_banned'>
+                <div class="mb-3" v-if='staff.is_banned==1'>
                     <label for="exampleFormControlInput1" class="form-label">Окочнание времени</label>
                     <input type="text" class="form-control" id="exampleFormControlInput1" v-model="staff.ban.end_time"/>
                 </div>

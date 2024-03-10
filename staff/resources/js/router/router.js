@@ -2,7 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Main from '../pages/Main.vue'
 import User from "../pages/Auth/User.vue";
 import Customer from "../pages/Core/Customer.vue";
-import Account from "../pages/Core/Account.vue";
+import Ban from "../pages/Core/Ban.vue";
 import Staff from "../pages/Staff/Staff.vue";
 import Credit from "../pages/Credit/Credit.vue";
 import Rate from "../pages/Credit/Rate.vue";
@@ -21,8 +21,8 @@ const routes = [
         component: Customer
     },
     {
-        path: '/accounts',
-        component: Account
+        path: '/bans',
+        component: Ban
     },
     {
         path: '/credits',

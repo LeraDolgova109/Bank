@@ -5,7 +5,7 @@
             <router-view></router-view>
         </div>
         <div class="col-9">
-            <h3>Счета</h3>
+            <h3>Блокировка</h3>
             <account-table/>
         </div>
     </div>

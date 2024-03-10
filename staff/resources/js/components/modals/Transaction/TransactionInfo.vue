@@ -1,37 +1,26 @@
 <template>
-    <div class="dialog container" v-if="show === true" >
-        <div class="card" style="width: 35rem;">
-            <div class="card-header">
-                Операции
-            </div>
-            <table class="table">
-            <thead>
-                <tr>
-                <th scope="col">id</th>
-                <th scope="col">Тип</th>
-                <th scope="col">Статус</th>
-                <th scope="col">Сумма</th>
-                <th scope="col">Дополнительная информация</th>
-                <th scope="col">Время</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="transaction in transactions">
-                <th scope="row">
-                    {{ transaction.id }}
-                </th>
-                <td>{{ transaction.type }}</td>
-                <td>{{ transaction.status }}</td>
-                <td>{{ transaction.amount }}</td>
-                <td>{{ transaction.add_info }}</td>
-                <td>{{ transaction.success_datetime }}</td>
-                </tr>
-            </tbody>
+    <div v-if="show === true">
+        <h4 class="bold">Операции акаунта #{{ account.id }}</h4>
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Тип</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Дополнительная информация</th>
+            <th scope="col">Время</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="transaction in transactions">
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.status }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.add_info }}</td>
+            <td>{{ transaction.success_datetime }}</td>
+            </tr>
+        </tbody>
         </table>
-            <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -43,6 +32,9 @@ export default {
                 type: Boolean,
                 default: false
             },
+            account: {
+                type: Object
+            }
         },
         data() {
             return {
@@ -65,6 +57,7 @@ export default {
                 return this.$store.getters.getTransactions;
             },
         }
+        
     }
 </script>
 

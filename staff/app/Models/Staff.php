@@ -22,7 +22,7 @@ class Staff extends Model
         return $this->belongsToMany(Role::class, 'staff_roles')->withTimestamps();;
     }
 
-    public function active_ban()
+    public function ban()
     {
         return $this->belongsTo(Ban::class);
     }

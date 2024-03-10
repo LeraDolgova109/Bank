@@ -41,6 +41,7 @@ export default {
     },
     methods: {
         showUpdateDialog(customer){
+            this.$store.dispatch('getAccounts', customer);
             this.dialogUpdate = !this.dialogUpdate;
             this.selectedCustomer = customer;
         },

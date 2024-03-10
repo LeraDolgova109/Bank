@@ -1,15 +1,7 @@
 import axios from "axios";
 export default {
     state: {
-        transactions: [{
-            'id': 1,
-            'account_id': 1,
-            'type': 'Перевод',
-            'status': 'Успешно',
-            'amount': 1000,
-            'add_info':  "Перевод на карту",
-            'success_datetime': "01.01.2024"
-        }]
+        transactions: []
     },
     mutations: {
         setTransactions(state, payload)
@@ -28,12 +20,12 @@ export default {
         }
     },
     actions: {
-        getTransactions(context)
+        getTransactions(context, data)
         {
-            axios.get('').then(response => {
+            axios.get('https://core/api/account/'+ data.id + '/transaction').then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('setTransactions', response.data);
+                    context.commit('setTransactions', response.data.transactions);
                 }
             }).catch(error => {
                 console.log(error);

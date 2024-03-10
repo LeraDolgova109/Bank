@@ -11,13 +11,13 @@ class StaffService
 {
     function get_all()
     {
-        $staffs = Staff::with(['role'])->get();
+        $staffs = Staff::with(['role', 'ban'])->get();
         return $staffs;
     }
 
     public function get($id)
     {
-        $staff = Staff::with(['role', 'active_ban'])->where(['id', '=', $id])->get();
+        $staff = Staff::with(['role', 'ban'])->where(['id', '=', $id])->get();
         return $staff;
     }
 

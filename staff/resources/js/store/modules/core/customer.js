@@ -1,15 +1,7 @@
 import axios from "axios";
 export default {
     state: {
-        customers: [{
-            'id': 1,
-            'user_id': 1,
-            'is_banned': true,
-            'ban': {
-                'reason': "qw",
-                'end_time': "12.12.2000"
-            }
-        }]
+        customers: []
     },
     mutations: {
         setCustomers(state, payload)
@@ -30,14 +22,14 @@ export default {
     actions: {
         getCustomers(context)
         {
-            // axios.get('').then(response => {
-            //     if (response.status === 200)
-            //     {
-            //         context.commit('setCustomers', response.data);
-            //     }
-            // }).catch(error => {
-            //     console.log(error);
-            // })
+            axios.get('https://core/api/customer').then(response => {
+                if (response.status === 200)
+                {
+                    context.commit('setCustomers', response.data.customers);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
         },
         postCustomer(context, data)
         {
