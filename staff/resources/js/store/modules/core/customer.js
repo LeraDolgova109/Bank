@@ -22,7 +22,7 @@ export default {
     actions: {
         getCustomers(context)
         {
-            axios.get('https://core/api/customer').then(response => {
+            axios.get('https://gate/api/customer').then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setCustomers', response.data.customers);

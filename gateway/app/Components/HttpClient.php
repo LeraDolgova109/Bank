@@ -10,7 +10,7 @@ class HttpClient
     public function __construct()
     {
         $this->client = new Client([
-            'base_url' => env('COMPONENT_APP_URL'),
+            'base_url' => env('CORE_APP_URL'),
             'verify' => false
         ]);
     }

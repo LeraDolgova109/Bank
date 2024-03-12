@@ -22,7 +22,7 @@ export default {
     actions: {
         getTransactions(context, data)
         {
-            axios.get('https://core/api/account/'+ data.id + '/transaction').then(response => {
+            axios.get('https://gate/api/account/'+ data.id + '/transaction').then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setTransactions', response.data.transactions);
