@@ -48,9 +48,6 @@
                         <div class="mb-3">Кем выдан:
                             <span class="fw-bold">{{ user.passport.issue_place }}</span>
                         </div>
-                        <div class="mb-3">Место рождения:
-                            <span class="fw-bold">{{ user.passport.residence_place }}</span>
-                        </div>
                     </div>
                 </div>
             </div>

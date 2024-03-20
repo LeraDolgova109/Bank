@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -17,11 +15,12 @@ class AuthController extends Controller
         $this->userController = $userController;
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
+        $data = $request->validated();
         $credentials = [
-            'email' => $request['email'],
-            'password' => $request['password']
+            'email' => $data['email'],
+            'password' => $data['password']
         ];
 
         if (! $token = auth()->attempt($credentials)) {

@@ -25,3 +25,5 @@ Route::prefix('auth')->middleware('api')->controller(\App\Http\Controllers\AuthC
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
+
+Route::get('users', [\App\Http\Controllers\UserController::class,'index']);

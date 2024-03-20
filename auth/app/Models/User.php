@@ -14,12 +14,16 @@ class User extends Authenticatable implements JWTSubject
 
     protected $fillable = [
         'name',
+        'surname',
+        'patronymic',
         'email',
         'password',
         'phone',
-        'birthDate',
+        'birthdate',
+        'birthplace',
         'gender'
     ];
+
 
     // Rest omitted for brevity
 
@@ -41,5 +45,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function passport()
+    {
+        return $this->hasOne(Passport::class);
     }
 }
