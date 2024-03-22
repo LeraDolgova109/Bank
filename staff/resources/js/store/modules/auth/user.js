@@ -33,17 +33,19 @@ export default {
         },
         postUser(context, data)
         {
-            context.commit('addUser', data);
-            // axios.post('', {
-
-            // }).then(response => {
-            //     if (response.status === 200)
-            //     {
-            //         context.commit('addUser', response.data);
-            //     }
-            // }).catch(error => {
-            //     console.log(error);
-            // })
+            const headers = {
+                'Content-Type': 'application/json'
+              }
+            axios.post('https://gate/api/create', data, {
+                headers: headers
+            }).then(response => {
+                if (response.status === 200)
+                {
+                    context.dispatch('getUsers');
+                }
+            }).catch(error => {
+                console.log(error);
+            })
         },
         updateUser(context, data)
         {

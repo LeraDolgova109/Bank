@@ -13,4 +13,11 @@ class UserController extends Controller
         $users = $service->get_users();
         return response() -> json($users);
     }
+
+    public function create(Request $request)
+    {
+        $service = new UserService();
+        $users = $service->create_user($request);
+        return response() -> json($users);
+    }
 }

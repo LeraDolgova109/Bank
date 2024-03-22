@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', [\App\Http\Controllers\UserController::class, 'register']);
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::put('/user', [\App\Http\Controllers\UserController::class, 'update']);
-});
+Route::post('/create', [\App\Http\Controllers\UserController::class, 'register']);
 
 Route::prefix('auth')->middleware('api')->controller(\App\Http\Controllers\AuthController::class)->group(function () {
     Route::post('login', 'login');
@@ -26,4 +23,4 @@ Route::prefix('auth')->middleware('api')->controller(\App\Http\Controllers\AuthC
     Route::post('refresh', 'refresh');
 });
 
-Route::get('users', [\App\Http\Controllers\UserController::class,'index']);
+Route::get('/users', [\App\Http\Controllers\UserController::class,'index']);

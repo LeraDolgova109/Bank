@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\Passport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,15 +12,17 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    public function register(RegisterRequest $request)
+    public function register(Request $request)
     {
-        $data = $request->validated();
-        
+        $data = $request->all();
         $data['password'] = Hash::make($request['password']);
         $user = User::create($data);
-        
-        $token = auth()->tokenById($user->id);
-        return response()->json(['token' => $token]);
+        $data1 = $data['passport'];
+        $data1['user_id'] = $user->id;
+        $passport = Passport::create($data1);
+
+        $token = auth()->tokenById($user['id']);
+        return response() -> json(['token' => $token]);
     }
 
     public function index()
