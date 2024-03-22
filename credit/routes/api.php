@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoanController;
+use App\Http\Controllers\RateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('rate')->group(function (){
+    Route::get('/', [RateController::class, 'index']);
+    //только для сотрудника
+    Route::post('/', [RateController::class, 'create']);
+    Route::put('/{rate}', [RateController::class, 'update']);
+    Route::delete('/{rate}', [RateController::class, 'delete']);
+});
+
+Route::prefix('loan')->group(function (){
+    Route::post('/request', [LoanController::class, 'create']);
+    Route::get('/{loan}', [LoanController::class, 'get']);
+    //только для сотрудника
+    Route::get('/', [LoanController::class, 'index']);
+    Route::put('/{loan}', [LoanController::class, 'update']);
+});
+
+Route::prefix('customer')->group(function (){
+    Route::get('/{customer_id}/loan', [LoanController::class, 'index']);
 });
