@@ -13,6 +13,7 @@ import CustomerDelete from "./modals/Customer/CustomerDelete.vue";
 import RateCreate from "./modals/Rate/RateCreate.vue";
 import RateUpdate from "./modals/Rate/RateUpdate.vue";
 import RateDelete from "./modals/Rate/RateDelete.vue";
+import CreditUpdate from "./modals/Credit/CreditUpdate.vue";
 import StaffCreate from "./modals/Staff/StaffCreate.vue";
 import StaffUpdate from "./modals/Staff/StaffUpdate.vue";
 import StaffDelete from "./modals/Staff/StaffDelete.vue";
@@ -38,6 +39,7 @@ export default [
     RateCreate,
     RateUpdate,
     RateDelete,
+    CreditUpdate,
     StaffCreate,
     StaffUpdate,
     StaffDelete,

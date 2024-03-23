@@ -21,6 +21,11 @@ Route::post('rate', [\App\Http\Controllers\RateController::class, 'create']);
 Route::put('rate/{rate}', [\App\Http\Controllers\RateController::class, 'update']);
 Route::delete('rate/{rate}', [\App\Http\Controllers\RateController::class, 'delete']);
 
+Route::get('loan', [\App\Http\Controllers\CreditController::class, 'index']);
+Route::get('loan/{loan}', [\App\Http\Controllers\CreditController::class, 'show']);
+Route::get('customer/{customer}/loan', [\App\Http\Controllers\CreditController::class, 'customer']);
+Route::put('loan/{loan}', [\App\Http\Controllers\CreditController::class, 'update']);
+
 Route::get('customer', [\App\Http\Controllers\CustomerController::class, 'index']);
 Route::get('customer/{customer}', [\App\Http\Controllers\CustomerController::class, 'show']);
 
