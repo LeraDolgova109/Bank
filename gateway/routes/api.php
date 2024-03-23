@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('users', [\App\Http\Controllers\UserController::class, 'index']);
 Route::post('create', [\App\Http\Controllers\UserController::class, 'create']);
 
+Route::get('rate', [\App\Http\Controllers\RateController::class, 'index']);
+Route::post('rate', [\App\Http\Controllers\RateController::class, 'create']);
+Route::put('rate/{rate}', [\App\Http\Controllers\RateController::class, 'update']);
+Route::delete('rate/{rate}', [\App\Http\Controllers\RateController::class, 'delete']);
+
 Route::get('customer', [\App\Http\Controllers\CustomerController::class, 'index']);
 Route::get('customer/{customer}', [\App\Http\Controllers\CustomerController::class, 'show']);
 

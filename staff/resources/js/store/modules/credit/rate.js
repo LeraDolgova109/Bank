@@ -1,16 +1,7 @@
 import axios from "axios";
 export default {
     state: {
-        rates: [{
-            'id': 1,
-            'name': 'Весенний',
-            'rate': 20
-        },
-        {
-            'id': 2,
-            'name': 'Летний',
-            'rate': 30
-        }]
+        rates: []
     },
     mutations: {
         setRates(state, payload)
@@ -31,23 +22,25 @@ export default {
     actions: {
         getRates(context)
         {
-            // axios.get('').then(response => {
-            //     if (response.status === 200)
-            //     {
-            //         context.commit('setRates', response.data);
-            //     }
-            // }).catch(error => {
-            //     console.log(error);
-            // })
+            axios.get('https://gate/api/rate').then(response => {
+                if (response.status === 200)
+                {
+                    context.commit('setRates', response.data.rates);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
         },
         postRate(context, data)
         {
-            axios.post('', {
-
+            axios.post('https://gate/api/rate', {
+                'name': data.name,
+                'description': data.description,
+                'rate': data.rate
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('addRate', response.data);
+                    context.dispatch('getRates');
                 }
             }).catch(error => {
                 console.log(error);
@@ -55,8 +48,12 @@ export default {
         },
         updateRate(context, data)
         {
-            axios.put('' + data.id, {
-                
+            axios.put('https://gate/api/rate/' + data.id, {
+                'name': data.name,
+                'description': data.description,
+                'rate': data.rate,        
+                "status": data.status,
+                "start_date": data.start_date
             }).then(response => {
                 if (response.status === 200)
                 {
@@ -68,7 +65,7 @@ export default {
         },
         deleteRate(context, data)
         {
-            axios.delete('' + data.id
+            axios.delete('https://gate/api/rate/' + data.id
             ).then(response => {
                 if (response.status === 200)
                 {

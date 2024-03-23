@@ -6,17 +6,32 @@
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.fullName"/>
+                    <label for="exampleFormControlInput5" class="form-label">Название</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="rate.name"/>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlInput5" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="customer.customer.address"/>
+                    <label for="exampleFormControlInput5" class="form-label">Описание</label>
+                    <textarea type="text" class="form-control" id="exampleFormControlInput1" v-model="rate.description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Процент</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" v-model="rate.rate"/>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Статус</label>
+                    <select class="form-select" name="pets" id="pet-select" v-model="rate.status">
+                        <option value="available">Доступный</option>
+                        <option value="unavailable">Недоступный</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput5" class="form-label">Дата начала</label>
+                    <input type="date" class="form-control" id="exampleFormControlInput1" v-model="rate.start_date"/>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-warning" @click="updateCustomer" style="margin-left: 3px;">Редактировать</button>
+                <button class="btn btn-warning" @click="updateRate" style="margin-left: 3px;">Редактировать</button>
             </div>
         </div>
     </div>
@@ -30,7 +45,7 @@ export default {
                 type: Boolean,
                 default: false
             },
-            customer: {
+            rate: {
                 type: Object
             }
         },
@@ -44,9 +59,9 @@ export default {
             {
                 this.$emit('update:show', false);
             },
-            updateCustomer()
+            updateRate()
             {
-                this.$store.dispatch('updateCustomer', this.customer.customer);
+                this.$store.dispatch('updateRate', this.rate);
                 this.$emit('update:show', false);
             }
         }

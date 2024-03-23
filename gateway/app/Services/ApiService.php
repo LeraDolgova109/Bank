@@ -13,7 +13,7 @@ abstract class ApiService
         
         $headers['Content-Type'] = 'application/json';
         $body = $data;
-        if ($method == 'POST'){
+        if ($method == 'POST' || $method == 'PUT') {
             $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers, 'body' => $body));
         }
         else {

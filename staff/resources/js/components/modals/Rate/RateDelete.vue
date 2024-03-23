@@ -6,12 +6,12 @@
             </div>
             <div class="card-body">
                 <span>Подтвердите удаление тарифа
-                    <span class="fw-bold">{{ customer.fullName }}</span>
+                    <span class="fw-bold">{{ rate.name }}</span>
                 </span>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary" @click="hideDialog">закрыть</button>
-                <button class="btn btn-danger" @click="deleteCustomer" style="margin-left: 3px;">Удалить</button>
+                <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
+                <button class="btn btn-danger" @click="deleteRate" style="margin-left: 3px;">Удалить</button>
             </div>
         </div>
     </div>
@@ -25,11 +25,8 @@ export default {
             type: Boolean,
             default: false
         },
-        customer: {
+        rate: {
             type: Object,
-            fullName: {
-                type: String
-            }
         }
     },
     data() {
@@ -42,9 +39,9 @@ export default {
         {
             this.$emit('update:show', false);
         },
-        deleteCustomer()
+        deleteRate()
         {
-            this.$store.dispatch('deleteCustomer', this.customer.customer);
+            this.$store.dispatch('deleteRate', this.rate);
             this.$emit('update:show', false);
         }
     }
