@@ -20,7 +20,7 @@ export default {
         }
     },
     actions: {
-        getBans(context)
+        getBansClient(context)
         {
             axios.get('').then(response => {
                 if (response.status === 200)
@@ -31,7 +31,7 @@ export default {
                 console.log(error);
             })
         },
-        postBan(context, data)
+        postBanClient(context, data)
         {
             axios.post('', {
 
@@ -44,7 +44,7 @@ export default {
                 console.log(error);
             })
         },
-        updateBan(context, data)
+        updateBanClient(context, data)
         {
             axios.put('' + data.id, {
                 
@@ -57,7 +57,7 @@ export default {
                 console.log(error);
             })
         },
-        deleteBan(context, data)
+        deleteBanClient(context, data)
         {
             axios.delete('' + data.id
             ).then(response => {

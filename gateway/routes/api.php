@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('users', [\App\Http\Controllers\UserController::class, 'index']);
 Route::post('create', [\App\Http\Controllers\UserController::class, 'create']);
+Route::get('/ban/{ban}', [\App\Http\Controllers\UserController::class, 'show']);
+Route::post('/ban', [\App\Http\Controllers\UserController::class, 'ban']);
+Route::put('/unban/{user}', [\App\Http\Controllers\UserController::class, 'unban']);
 
 Route::get('rate', [\App\Http\Controllers\RateController::class, 'index']);
 Route::post('rate', [\App\Http\Controllers\RateController::class, 'create']);

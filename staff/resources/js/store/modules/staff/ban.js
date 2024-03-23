@@ -1,12 +1,12 @@
 import axios from "axios";
 export default {
     state: {
-        staffBans: []
+        ban: {}
     },
     mutations: {
-        setStaffBans(state, payload)
+        setBan(state, payload)
         {
-            state.staffBans = payload
+            state.ban = payload
         },
         addStaffBan(state, payload)
         {
@@ -14,31 +14,62 @@ export default {
         }
     },
     getters: {
-        getStaffBans(state)
+        getBan(state)
         {
-            return state.staffBans
+            return state.ban
         }
     },
     actions: {
-        getStaffBans(context)
+        getBan(context, id)
         {
-            axios.get('').then(response => {
+            axios.get('https://gate/api/ban/' + id).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('setStaffBans', response.data);
+                    if (response.data.length == 0)
+                    {
+                        context.commit('setBan', {});
+                        return;
+                    }
+                    response.data.forEach(element => {
+                        if (element.role == 'staff')
+                        {
+                            context.commit('setBan', element);
+                            return;
+                        }
+                        else
+                        {
+                            context.commit('setBan', {});
+                        }
+                    });   
                 }
             }).catch(error => {
                 console.log(error);
             })
         },
-        updateStaffBan(context, data)
+        postBan(context, data)
         {
-            axios.put('' + data.id, {
-                
+            axios.post('https://gate/api/ban', {
+                "user_id":  data.staff.user_id,
+                "reason": data.ban.reason,
+                "end_time": data.ban.end_time,
+                "role": "staff"
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getStaffBans');
+                    context.dispatch('getBan');
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        deleteBan(context, data)
+        {
+            axios.put('https://gate/api/unban/' + data.user_id, {
+                "role": "staff"
+            }).then(response => {
+                if (response.status === 200)
+                {
+                    context.dispatch('getBan');
                 }
             }).catch(error => {
                 console.log(error);

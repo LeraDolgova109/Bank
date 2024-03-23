@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('staffs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->boolean('is_banned')->default(false);
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamps();

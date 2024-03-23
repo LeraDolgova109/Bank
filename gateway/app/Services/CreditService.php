@@ -7,7 +7,7 @@ class CreditService extends ApiService
 {
     public function __construct()
     {
-        $this->endpoint = env('CREDIT_APP_URL');
+        $this->endpoint = "https://bank-credit/api/";
     }
 
     function get_credits()

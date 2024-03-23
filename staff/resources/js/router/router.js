@@ -5,6 +5,7 @@ import Customer from "../pages/Core/Customer.vue";
 import CustomerInfo from "../pages/Core/CustomerInfo.vue";
 import Ban from "../pages/Core/Ban.vue";
 import Staff from "../pages/Staff/Staff.vue";
+import StaffInfo from "../pages/Staff/StaffInfo.vue";
 import Credit from "../pages/Credit/Credit.vue";
 import CreditInfo from "../pages/Credit/CreditInfo.vue";
 import Rate from "../pages/Credit/Rate.vue";
@@ -41,6 +42,10 @@ const routes = [
     {
         path: '/staffs',
         component: Staff
+    },
+    {
+        path: '/staffs/:id',
+        component: StaffInfo
     },
     {
         path: '/rates',

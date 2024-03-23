@@ -24,3 +24,6 @@ Route::prefix('auth')->middleware('api')->controller(\App\Http\Controllers\AuthC
 });
 
 Route::get('/users', [\App\Http\Controllers\UserController::class,'index']);
+Route::get('/ban/{ban}', [\App\Http\Controllers\BanController::class, 'show']);
+Route::post('/ban', [\App\Http\Controllers\BanController::class, 'ban']);
+Route::put('/unban/{user}', [\App\Http\Controllers\BanController::class, 'unban']);
