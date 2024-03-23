@@ -14,7 +14,9 @@
         <tbody>
             <tr v-for="customer in customers">
             <th scope="row">
-                {{ customer.id }}
+                <a class="link" @click="$router.push('/customers/'+customer.id)">
+                    {{ customer.id }}
+                </a>
             </th>
             <td>{{ customer.user_id }}</td>
             <td>{{ customer.is_banned }}</td>

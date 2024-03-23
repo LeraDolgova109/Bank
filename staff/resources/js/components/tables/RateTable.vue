@@ -6,7 +6,12 @@
             <tr>
             <th scope="col">id</th>
             <th scope="col">Название</th>
+            <th scope="col">Описание</th>
             <th scope="col">Процент</th>
+            <th scope="col">Дата начала</th>
+            <th scope="col">Дата окончания</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Количество кредитов</th>
             <th scope="col"></th>
             <th scope="col"></th>
             </tr>
@@ -17,7 +22,12 @@
                 {{ rate.id }}
             </th>
             <td>{{ rate.name }}</td>
+            <td>{{ rate.description }}</td>
             <td>{{ rate.rate }}</td>
+            <td>{{ rate.start_date }}</td>
+            <td>{{ rate.end_date }}</td>
+            <td>{{ rate.status }}</td>
+            <td>{{ rate.count_loans }}</td>
             <td>
                 <button type="button" class="btn btn-warning" @click="showUpdateDialog(rate)">Изменить</button>
             </td>

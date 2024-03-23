@@ -1,6 +1,5 @@
 <template>
     <user-update v-model:show="dialogUpdate" v-model:user="selectedUser" v-model:fullName="selectedFullName"/>
-    <user-delete v-model:show="dialogDelete" v-model:user="selectedUser" v-model:fullName="selectedFullName"/>
     <table class="table">
         <thead>
             <tr>
@@ -29,9 +28,6 @@
             <td>
                 <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(user)">Детали</button>
             </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm" @click="showDeleteDialog(user)">Удалить</button>
-            </td>
             </tr>
         </tbody>
     </table>
@@ -43,7 +39,6 @@ export default {
     data() {
         return {
             dialogUpdate: false,
-            dialogDelete: false,
             selectedUser: null,
             selectedFullName: ""
         }
@@ -54,11 +49,6 @@ export default {
             this.selectedUser = user;
             this.selectedFullName = user.surname + " " + user.name + " " + user.patronymic;
         },
-        showDeleteDialog(user){
-            this.dialogDelete = !this.dialogDelete;
-            this.selectedUser = user;
-            this.selectedFullName = user.surname + " " + user.name + " " + user.patronymic;
-        }
     },
     computed: {
         users() {

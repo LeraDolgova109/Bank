@@ -2,9 +2,11 @@ import {createRouter, createWebHistory} from 'vue-router'
 import Main from '../pages/Main.vue'
 import User from "../pages/Auth/User.vue";
 import Customer from "../pages/Core/Customer.vue";
+import CustomerInfo from "../pages/Core/CustomerInfo.vue";
 import Ban from "../pages/Core/Ban.vue";
 import Staff from "../pages/Staff/Staff.vue";
 import Credit from "../pages/Credit/Credit.vue";
+import CreditInfo from "../pages/Credit/CreditInfo.vue";
 import Rate from "../pages/Credit/Rate.vue";
 
 const routes = [
@@ -21,12 +23,20 @@ const routes = [
         component: Customer
     },
     {
+        path: '/customers/:id',
+        component: CustomerInfo
+    },
+    {
         path: '/bans',
         component: Ban
     },
     {
         path: '/credits',
         component: Credit
+    },
+    {
+        path: '/credits/:id',
+        component: CreditInfo
     },
     {
         path: '/staffs',

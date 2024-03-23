@@ -8,14 +8,17 @@ abstract class ApiService
 {
     protected string $endpoint;
     public function request($method, $path, $data = [])
-    {
+    {  
         $import = new HttpClient();
-        $response = $import->client->request($method, $this->endpoint . $path, [
-            'headers' => [
-                "Accept" => "application/json",
-                //'Authorization' => "Bearer $token"
-            ]
-        ]);
+        
+        $headers['Content-Type'] = 'application/json';
+        $body = $data;
+        if ($method == 'POST' || $method == 'PUT') {
+            $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers, 'body' => $body));
+        }
+        else {
+            $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers));
+        }
         //$token = $data['bearerToken'];
         $data = json_decode($response->getBody()->getContents());
         return $data;
