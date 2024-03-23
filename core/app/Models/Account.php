@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Jobs\AccessTransaction;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,5 +36,40 @@ class Account extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function close()
+    {
+        $this->status = 'closed';
+        $this->close_date = Carbon::now();
+        $this->save();
+    }
+
+    public function replenish(int $amount, string $add_info = '')
+    {
+        $transaction = $this->transactions()->create([
+            'type' => 'replenishment',
+            'status' => 'in_process',
+            'amount' => $amount,
+            'add_info' => $add_info,
+        ]);
+        AccessTransaction::dispatch($transaction)
+            ->delay(now()->addSeconds(30));
+    }
+
+    public function debit(int $amount, string $add_info = '')
+    {
+        $transaction = $this->transactions()->create([
+            'type' => 'debiting',
+            'status' => 'in_process',
+            'amount' => $amount,
+            'add_info' => $add_info,
+        ]);
+        if ($this->balance - $transaction->amount < 0) {
+            $transaction->status = 'reject';
+            $transaction->save();
+        }
+        AccessTransaction::dispatch($transaction)
+            ->delay(now()->addSeconds(5));
     }
 }
