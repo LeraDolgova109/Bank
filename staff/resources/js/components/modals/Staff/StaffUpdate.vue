@@ -16,7 +16,7 @@
             </div>
             <div class="card-footer d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-warning" @click="updateStaff" style="margin-left: 3px;"  v-if="ban.id">Разблокировать</button>
+                <button class="btn btn-success" @click="updateStaff" style="margin-left: 3px;"  v-if="ban.id">Разблокировать</button>
                 <button class="btn btn-warning" @click="deleteStaff" style="margin-left: 3px;"  v-else >Заблокировать</button>
             </div>
         </div>

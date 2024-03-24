@@ -21,7 +21,7 @@
             <td>{{ customer.user_id }}</td>
             <td>{{ customer.is_banned }}</td>
             <td>
-                <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(customer)">Детали</button>
+                <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(customer)">Счета</button>
             </td>
             <td>
                 <button type="button" class="btn btn-danger btn-sm" @click="showMenuDialog(customer)">Удалить</button>

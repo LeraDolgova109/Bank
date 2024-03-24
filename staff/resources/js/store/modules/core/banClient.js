@@ -1,31 +1,46 @@
 import axios from "axios";
 export default {
     state: {
-        bans: []
+        banClient: {}
     },
     mutations: {
-        setBans(state, payload)
+        setBanClient(state, payload)
         {
-            state.bans = payload
+            state.banClient = payload
         },
-        addBan(state, payload)
+        addStaffBan(state, payload)
         {
-            state.bans.push(payload)
+            state.staffBans.push(payload)
         }
     },
     getters: {
-        getBans(state)
+        getBanClient(state)
         {
-            return state.bans
+            return state.banClient
         }
     },
     actions: {
-        getBansClient(context)
+        getBanClient(context, id)
         {
-            axios.get('').then(response => {
+            axios.get('https://gate/api/ban/' + id).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('setBans', response.data);
+                    if (response.data.length == 0)
+                    {
+                        context.commit('setBanClient', {});
+                        return;
+                    }
+                    response.data.forEach(element => {
+                        if (element.role == 'customer')
+                        {
+                            context.commit('setBanClient', element);
+                            return;
+                        }
+                        else
+                        {
+                            context.commit('setBanClient', {});
+                        }
+                    });   
                 }
             }).catch(error => {
                 console.log(error);
@@ -33,25 +48,15 @@ export default {
         },
         postBanClient(context, data)
         {
-            axios.post('', {
-
+            axios.post('https://gate/api/ban', {
+                "user_id":  data.customer.user_id,
+                "reason": data.ban.reason,
+                "end_time": data.ban.end_time,
+                "role": "customer"
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('addBan', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-        updateBanClient(context, data)
-        {
-            axios.put('' + data.id, {
-                
-            }).then(response => {
-                if (response.status === 200)
-                {
-                    context.dispatch('getBans');
+                    context.dispatch('getBanClient', data.customer.user_id);
                 }
             }).catch(error => {
                 console.log(error);
@@ -59,11 +64,12 @@ export default {
         },
         deleteBanClient(context, data)
         {
-            axios.delete('' + data.id
-            ).then(response => {
+            axios.put('https://gate/api/unban/' + data.user_id, {
+                "role": "customer"
+            }).then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getBans');
+                    context.dispatch('getBanClient');
                 }
             }).catch(error => {
                 console.log(error);
