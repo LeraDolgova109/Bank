@@ -1,13 +1,9 @@
 <template>
-    <customer-update v-model:show="dialogUpdate" v-model:customer="selectedCustomer"/>
-    <customer-delete v-model:show="dialogDelete" v-model:customer="selectedCustomer"/>
     <table class="table">
         <thead>
             <tr>
             <th scope="col">id</th>
             <th scope="col">id Пользователя</th>
-            <th scope="col">Заблокирован</th>
-            <th scope="col"></th>
             <th scope="col"></th>
             </tr>
         </thead>
@@ -19,12 +15,8 @@
                 </a>
             </th>
             <td>{{ customer.user_id }}</td>
-            <td>{{ customer.is_banned }}</td>
             <td>
-                <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(customer)">Счета</button>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm" @click="showMenuDialog(customer)">Удалить</button>
+                <button type="button" class="btn btn-info btn-sm" @click="$router.push('/customers/'+customer.id)">Счета</button>
             </td>
             </tr>
         </tbody>
@@ -36,21 +28,11 @@ export default {
     name: "customer-table",
     data() {
         return {
-            dialogUpdate: false,
-            dialogDelete: false,
-            selectedCustomer: null
+            
         }
     },
     methods: {
-        showUpdateDialog(customer){
-            this.$store.dispatch('getAccounts', customer);
-            this.dialogUpdate = !this.dialogUpdate;
-            this.selectedCustomer = customer;
-        },
-        showDeleteDialog(customer){
-            this.dialogDelete = !this.dialogDelete;
-            this.selectedCustomer = customer;
-        }
+
     },
     computed: {
         customers() {

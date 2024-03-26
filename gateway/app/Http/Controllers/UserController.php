@@ -24,6 +24,12 @@ class UserController extends Controller
     public function show($id)
     {
         $service = new UserService();
+        $result = $service->get_user($id);
+        return response() -> json($result);
+    }
+    public function show_ban($id)
+    {
+        $service = new UserService();
         $result = $service->show_ban($id);
         return response() -> json($result);
     }

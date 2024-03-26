@@ -15,6 +15,12 @@ class UserService extends ApiService
         return $this->get('users');
     }
 
+    function get_user($id)
+    {
+        return $this->get("users/$id");
+    }
+
+
     function create_user(Request $request)
     {
         return $this->post('create', json_encode($request->all()));
