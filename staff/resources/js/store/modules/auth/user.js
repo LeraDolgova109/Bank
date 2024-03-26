@@ -2,11 +2,16 @@ import axios from "axios";
 export default {
     state: {
         users: [],
+        user: {}
     },
     mutations: {
         setUsers(state, payload)
         {
             state.users = payload
+        },
+        setUser(state, payload)
+        {
+            state.user = payload
         },
         addUser(state, payload)
         {
@@ -17,6 +22,10 @@ export default {
         getUsers(state)
         {
             return state.users
+        },
+        getUser(state)
+        {
+            return state.user
         }
     },
     actions: {
@@ -26,6 +35,17 @@ export default {
                 if (response.status === 200)
                 {
                     context.commit('setUsers', response.data);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        getUserInfo(context, data)
+        {
+            axios.get('https://gate/api/users/' + data).then(response => {
+                if (response.status === 200)
+                {
+                    context.commit('setUser', response.data);
                 }
             }).catch(error => {
                 console.log(error);

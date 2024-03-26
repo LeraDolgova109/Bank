@@ -26,6 +26,7 @@ export default {
         }
     },
     mounted() {
+        this.$store.dispatch('getUsers');
         this.$store.dispatch('getCustomers');
     }
 }

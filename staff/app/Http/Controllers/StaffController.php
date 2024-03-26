@@ -19,9 +19,10 @@ class StaffController extends Controller
       return response() -> json($staffs);
    }
 
-   public function show()
+   public function show($id)
    {
-    
+      $staff = $this->staffService->get($id);
+      return response() -> json($staff);
    }
 
    public function store(Request $request)

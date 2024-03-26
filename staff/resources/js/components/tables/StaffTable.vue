@@ -1,6 +1,4 @@
 <template>
-    <staff-update v-model:show="dialogUpdate" v-model:staff="selectedStaff"/>
-    <staff-delete v-model:show="dialogDelete" v-model:staff="selectedStaff"/>
     <table class="table">
         <thead>
             <tr>
@@ -19,10 +17,7 @@
             <td> {{ staff.user_id }} </td>
             <td> {{ staff.role.name }} </td>
             <td>
-                <button type="button" class="btn btn-info" @click="showUpdateDialog(staff)" v-if='staff.is_banned==1'>Блокировка</button>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger" @click="showDeleteDialog(staff)" v-if='staff.is_banned==0'>Заблокировать</button>
+                <button type="button" class="btn btn-info" @click="showUpdateDialog(staff)">Информация</button>
             </td>
             </tr>
         </tbody>
@@ -41,11 +36,7 @@ export default {
     },
     methods: {
         showUpdateDialog(staff){
-            this.dialogUpdate = !this.dialogUpdate;
-            this.selectedStaff = staff;
-        },
-        showDeleteDialog(staff){
-            this.dialogDelete = !this.dialogDelete;
+            this.$router.push('/staffs/' + staff.id)
             this.selectedStaff = staff;
         },
     },

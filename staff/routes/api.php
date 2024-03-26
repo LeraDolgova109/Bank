@@ -16,13 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'staffs'], function (){
     Route::get('/', [\App\Http\Controllers\StaffController::class, 'index']);
+    Route::get('/{staff}', [\App\Http\Controllers\StaffController::class, 'show']);
     Route::post('/', [\App\Http\Controllers\StaffController::class, 'store']);
     Route::delete('/{staff}', [\App\Http\Controllers\StaffController::class, 'delete']);
 });
 Route::group(['prefix' => 'roles'], function (){
     Route::get('/', [\App\Http\Controllers\RoleController::class, 'index']);
-});
-Route::group(['prefix' => 'bans'], function (){
-    Route::post('/ban/{staff}', [\App\Http\Controllers\BanController::class, 'ban']);
-    Route::delete('/unban/{staff}', [\App\Http\Controllers\BanController::class, 'unban']);
 });

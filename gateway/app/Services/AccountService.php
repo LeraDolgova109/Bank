@@ -7,7 +7,7 @@ class AccountService extends ApiService
 {
     public function __construct()
     {
-        $this->endpoint = env('CORE_APP_URL');
+        $this->endpoint = "https://core/api/";
     }
 
     function get_account_transaction($id)

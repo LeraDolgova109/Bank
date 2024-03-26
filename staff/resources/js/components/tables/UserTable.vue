@@ -1,5 +1,5 @@
 <template>
-    <user-update v-model:show="dialogUpdate" v-model:user="selectedUser" v-model:fullName="selectedFullName"/>
+    <user-update v-model:show="dialogUpdate" v-model:user="selectedUser"/>
     <table class="table">
         <thead>
             <tr>
@@ -40,14 +40,12 @@ export default {
         return {
             dialogUpdate: false,
             selectedUser: null,
-            selectedFullName: ""
         }
     },
     methods: {
         showUpdateDialog(user){
             this.dialogUpdate = !this.dialogUpdate;
             this.selectedUser = user;
-            this.selectedFullName = user.surname + " " + user.name + " " + user.patronymic;
         },
     },
     computed: {

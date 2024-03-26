@@ -8,6 +8,8 @@
             <th scope="col">Статус</th>
             <th scope="col">Тип</th>
             <th scope="col">Баланс</th>
+            <th scope="col">Видимость</th>
+            <th scope="col"></th>
             <th scope="col"></th>
             </tr>
         </thead>
@@ -21,8 +23,10 @@
             <td>{{ account.status }}</td>
             <td>{{ account.type }}</td>
             <td>{{ account.balance }}</td>
+            <td>{{  }}</td>
             <td>
                 <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(account)">Операции</button>
+                <button type="button" class="btn btn-light btn-sm" @click="showUpdateDialog(account)">Видимость</button>
             </td>
             </tr>
         </tbody>

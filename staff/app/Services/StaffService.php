@@ -11,13 +11,13 @@ class StaffService
 {
     function get_all()
     {
-        $staffs = Staff::with(['role', 'ban'])->get();
+        $staffs = Staff::with(['role'])->get();
         return $staffs;
     }
 
     public function get($id)
     {
-        $staff = Staff::with(['role', 'ban'])->where(['id', '=', $id])->get();
+        $staff = Staff::with(['role'])->where('id', '=', $id)->first();
         return $staff;
     }
 
@@ -25,8 +25,7 @@ class StaffService
     {
         $staff = Staff::create([
             'user_id' => $request->user_id,
-            'role_id' => $request->role_id,    
-            'is_banned' => false,  
+            'role_id' => $request->role_id,
         ]);
         return $staff;
     }

@@ -5,7 +5,16 @@
             <router-view></router-view>
         </div>
         <div class="col-9">
-            <h3>Кредиты клиента</h3>
+            <h3>Клиент #{{ customer.id }}</h3>
+            <div class="btn-group">
+                <button type="button" class="btn btn-info" @click="showDialogUser">Пользователь</button>
+                <button type="button" class="btn btn-warning" @click="showDialog">Блокировка</button>
+            </div>
+            <user-info v-model:show1="dialogUser"/>
+            <customer-delete v-model:show="dialogUpdate" v-model:customer="customer"/>
+            <h2 class="container">Счета</h2>
+            <account-table v-model:accounts="accounts"/>
+            <h2 class="container">Кредиты</h2>
             <credit-table/>
         </div>
     </div>
@@ -15,16 +24,32 @@
 export default {
     data(){
         return{
-            dialogCreate: false
+            dialogUpdate: false,
+            dialogUser: false,
         }
     },
     methods: {
         showDialog(){
-            this.dialogCreate = !this.dialogCreate;
+            this.dialogUpdate = !this.dialogUpdate;
+        },
+        showDialogUser(){
+              this.$store.dispatch('getUserInfo', this.customer.user_id);
+              this.dialogUser = !this.dialogUser;
         }
     },
     mounted() {
+        this.$store.dispatch('getCustomer', this.$route.params.id);
+        this.$store.dispatch('getBanClient', this.$route.params.id);
+        this.$store.dispatch('getAccounts', this.$route.params.id);
         this.$store.dispatch('getCustomerCredits', this.$route.params.id);
+    },
+    computed: {
+        customer() {
+            return this.$store.getters.getCustomer;
+        },
+        accounts() {
+            return this.$store.getters.getAccounts;
+        },
     }
 }
 </script>
@@ -32,5 +57,9 @@ export default {
 <style scoped>
 .container{
     margin-top: 30px;
+}
+
+.btn-group {
+    margin-top: 10px;
 }
 </style>

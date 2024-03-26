@@ -1,12 +1,17 @@
 import axios from "axios";
 export default {
     state: {
-        staffs: []
+        staffs: [],
+        staff: {}
     },
     mutations: {
         setStaffs(state, payload)
         {
             state.staffs = payload
+        },
+        setStaff(state, payload)
+        {
+            state.staff = payload
         },
         addStaff(state, payload)
         {
@@ -17,6 +22,10 @@ export default {
         getStaffs(state)
         {
             return state.staffs
+        },
+        getStaff(state)
+        {
+            return state.staff
         }
     },
     actions: {
@@ -25,8 +34,18 @@ export default {
             axios.get('/api/staffs')
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data)
                     context.commit('setStaffs', response.data);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        getStaff(context, id)
+        {
+            axios.get('/api/staffs/' + id)
+            .then(response => {
+                if (response.status === 200) {
+                    context.commit('setStaff', response.data);
                 }
             }).catch(error => {
                 console.log(error);
@@ -62,33 +81,6 @@ export default {
         deleteStaff(context, data)
         {
             axios.delete('/api/staffs/' + data.id
-            ).then(response => {
-                if (response.status === 200)
-                {
-                    context.dispatch('getStaffs');
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-        postStaffBan(context, data)
-        {
-            axios.post('/api/bans/ban/' + data.staff.id, {
-                'staff_id': data.staff.id,
-                'reason': data.ban.reason,
-                'end_time': data.ban.end_time
-            }).then(response => {
-                if (response.status === 200)
-                {
-                    context.dispatch('getStaffs');
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-        deleteStaffBan(context, data)
-        {
-            axios.delete('api/bans/unban/' + data.id
             ).then(response => {
                 if (response.status === 200)
                 {

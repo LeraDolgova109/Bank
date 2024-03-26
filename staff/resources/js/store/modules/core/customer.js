@@ -1,12 +1,17 @@
 import axios from "axios";
 export default {
     state: {
-        customers: []
+        customers: [],
+        customer: {}
     },
     mutations: {
         setCustomers(state, payload)
         {
             state.customers = payload
+        },
+        setCustomer(state, payload)
+        {
+            state.customer = payload
         },
         addCustomer(state, payload)
         {
@@ -17,6 +22,10 @@ export default {
         getCustomers(state)
         {
             return state.customers
+        },
+        getCustomer(state)
+        {
+            return state.customer
         }
     },
     actions: {
@@ -26,6 +35,17 @@ export default {
                 if (response.status === 200)
                 {
                     context.commit('setCustomers', response.data.customers);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        getCustomer(context, id)
+        {
+            axios.get('https://gate/api/customer/' + id).then(response => {
+                if (response.status === 200)
+                {
+                    context.commit('setCustomer', response.data);
                 }
             }).catch(error => {
                 console.log(error);
