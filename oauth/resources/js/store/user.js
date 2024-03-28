@@ -26,10 +26,6 @@ export default {
         getUser(state)
         {
             return state.user
-        },
-        getToken(state)
-        {
-            return localStorage.getItem('token');
         }
     },
     actions: {
@@ -55,17 +51,17 @@ export default {
                 console.log(error);
             })
         },
-        postUser(context, data)
+        login(context, data)
         {
             const headers = {
                 'Content-Type': 'application/json'
               }
-            axios.post('https://gate/api/create', data, {
+            axios.post('/api/login', data, {
                 headers: headers
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getUsers');
+                    window.location.href = response.data;
                 }
             }).catch(error => {
                 console.log(error);
@@ -84,26 +80,13 @@ export default {
                 console.log(error);
             })
         },
-        login(context)
+        deleteUser(context, data)
         {
-            window.location.href = "https://oauth/";
-        },
-        logout(context)
-        {
-            axios.post('https://oauth/api/logout', {},
-                {
-                    headers: {
-                        "Content-type": "application/json",
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
-                    }
-                }
-            )
-            .then(response => {
+            axios.delete('' + data.id
+            ).then(response => {
                 if (response.status === 200)
                 {
-                    localStorage.setItem('token', 'expired');
-                    window.open("https://staff/#/");
-                    window.close();
+                    context.dispatch('getUsers');
                 }
             }).catch(error => {
                 console.log(error);
