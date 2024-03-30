@@ -63,15 +63,18 @@ export default {
         },
         postCustomer(context, data)
         {
-            axios.post('', {
-
+            axios.post('https://gate/api/customer', {
+                "user_id": data.user.toString()
+            }, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.commit('addCustomer', response.data);
+                    context.dispatch('getCustomers');
                 }
-            }).catch(error => {
-                console.log(error);
             })
         },
         updateCustomer(context, data)

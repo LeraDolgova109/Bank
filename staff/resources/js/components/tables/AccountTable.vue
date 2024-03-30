@@ -23,10 +23,13 @@
             <td>{{ account.status }}</td>
             <td>{{ account.type }}</td>
             <td>{{ account.balance }}</td>
-            <td>{{  }}</td>
+            <td >
+                <p v-if="compare(account)">Скрыт</p>
+                <p v-else>Виден</p>
+            </td>
             <td>
                 <button type="button" class="btn btn-info btn-sm" @click="showUpdateDialog(account)">Операции</button>
-                <button type="button" class="btn btn-light btn-sm" @click="showUpdateDialog(account)">Видимость</button>
+                <button type="button" class="btn btn-light btn-sm" @click="hideAccount(account)">Видимость</button>
             </td>
             </tr>
         </tbody>
@@ -40,6 +43,9 @@ export default {
     props:{
             accounts: {
                 type: Array
+            },
+            hidden: {
+                type: Array
             }
         },
     data() {
@@ -50,15 +56,23 @@ export default {
         }
     },
     methods: {
+        hideAccount(account){
+            this.$store.dispatch('hideAccount', account);
+        },
         showUpdateDialog(account){
             this.$store.dispatch('getTransactions', account);
             this.dialogUpdate = !this.dialogUpdate;
             this.selectedAccount = account;
         },
+        compare(account) {
+            let result = false;
+            this.hidden.forEach(element => {
+                if (element.account_id == account.id)
+                    result = true;
+            });
+            return result;
+        }
     },
-    computed: {
-
-    }
 }
 </script>
 

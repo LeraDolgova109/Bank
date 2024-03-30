@@ -13,7 +13,7 @@
             <user-info v-model:show1="dialogUser"/>
             <customer-delete v-model:show="dialogUpdate" v-model:customer="customer"/>
             <h2 class="container">Счета</h2>
-            <account-table v-model:accounts="accounts"/>
+            <account-table v-model:accounts="accounts" v-model:hidden="hidden"/>
             <h2 class="container">Кредиты</h2>
             <credit-table/>
         </div>
@@ -30,6 +30,8 @@ export default {
     },
     methods: {
         showDialog(){
+            
+        this.$store.dispatch('getBanClient', this.customer.user_id);
             this.dialogUpdate = !this.dialogUpdate;
         },
         showDialogUser(){
@@ -39,8 +41,8 @@ export default {
     },
     mounted() {
         this.$store.dispatch('getCustomer', this.$route.params.id);
-        this.$store.dispatch('getBanClient', this.$route.params.id);
         this.$store.dispatch('getAccounts', this.$route.params.id);
+        this.$store.dispatch('getHidden');
         this.$store.dispatch('getCustomerCredits', this.$route.params.id);
     },
     computed: {
@@ -49,6 +51,9 @@ export default {
         },
         accounts() {
             return this.$store.getters.getAccounts;
+        },
+        hidden() {
+            return this.$store.getters.getHidden;
         },
     }
 }

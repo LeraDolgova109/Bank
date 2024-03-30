@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'staffs'], function (){
     Route::get('/', [\App\Http\Controllers\StaffController::class, 'index']);
+    Route::get('/settings/{staff}', [\App\Http\Controllers\SettingsController::class, 'show']);
+    Route::post('/settings/{staff}', [\App\Http\Controllers\SettingsController::class, 'store']);
+    Route::get('/accounts/{staff}', [\App\Http\Controllers\HiddenController::class, 'index']);
+    Route::post('/hide/{staff}', [\App\Http\Controllers\HiddenController::class, 'hide']);
     Route::get('/{staff}', [\App\Http\Controllers\StaffController::class, 'show']);
     Route::post('/', [\App\Http\Controllers\StaffController::class, 'store']);
     Route::delete('/{staff}', [\App\Http\Controllers\StaffController::class, 'delete']);

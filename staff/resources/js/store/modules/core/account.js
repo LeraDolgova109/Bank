@@ -1,12 +1,17 @@
 import axios from "axios";
 export default {
     state: {
-        accounts: []
+        accounts: [],
+        hidden: []
     },
     mutations: {
         setAccounts(state, payload)
         {
             state.accounts = payload
+        },
+        setHidden(state, payload)
+        {
+            state.hidden = payload
         },
         addAccount(state, payload)
         {
@@ -17,6 +22,10 @@ export default {
         getAccounts(state)
         {
             return state.accounts
+        },
+        getHidden(state)
+        {
+            return state.hidden
         }
     },
     actions: {
@@ -32,6 +41,59 @@ export default {
                 {
                     context.commit('setAccounts', response.data.accounts);
                 }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        getHidden(context)
+        {
+            axios.get('https://oauth/api/user',
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }
+            ).then(response => {
+                axios.get('/api/staffs/accounts/' + response.data,   
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                }).then(response => {
+                    if (response.status === 200)
+                    {
+                        context.commit('setHidden', response.data);
+                    }
+                })
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        hideAccount(context, data)
+        {
+            axios.get('https://oauth/api/user',
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }
+            ).then(response => {
+                axios.post('/api/staffs/hide/' + response.data, {
+                        "account_id": data.id
+                }, {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                }).then(response => {
+                    if (response.status === 200)
+                    {
+                        context.dispatch('getHidden');
+                    }
+                })
             }).catch(error => {
                 console.log(error);
             })
