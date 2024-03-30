@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Customer\CreateRequest;
 use App\Http\Resources\CustomerResource;
 use App\Http\Resources\CustomerShortResource;
 use App\Models\Customer;
@@ -17,11 +18,8 @@ class CustomerController extends Controller
         return response(CustomerResource::make($customer));
     }
 
-    public function create(Request $request){
-
-    }
-
-    public function add_ban(Request $request, Customer $customer){
-
+    public function create(CreateRequest $request){
+        Customer::create($request->validated());
+        return response(['message' => 'Success'], 200);
     }
 }
