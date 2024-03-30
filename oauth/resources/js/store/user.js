@@ -29,28 +29,6 @@ export default {
         }
     },
     actions: {
-        getUsers(context)
-        {
-            axios.get('https://gate/api/users').then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('setUsers', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-        getUserInfo(context, data)
-        {
-            axios.get('https://gate/api/users/' + data).then(response => {
-                if (response.status === 200)
-                {
-                    context.commit('setUser', response.data);
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
         login(context, data)
         {
             const headers = {
@@ -67,26 +45,17 @@ export default {
                 console.log(error);
             })
         },
-        updateUser(context, data)
+        register(context, data)
         {
-            axios.put('' + data.id, {
-                
+            const headers = {
+                'Content-Type': 'application/json'
+              }
+            axios.post('/api/register', data, {
+                headers: headers
             }).then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getUsers');
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-        deleteUser(context, data)
-        {
-            axios.delete('' + data.id
-            ).then(response => {
-                if (response.status === 200)
-                {
-                    context.dispatch('getUsers');
+                    window.location.href = response.data;
                 }
             }).catch(error => {
                 console.log(error);

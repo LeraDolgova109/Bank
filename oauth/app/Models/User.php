@@ -19,8 +19,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'patronymic',
         'email',
         'password',
+        'phone',
+        'birthdate',
+        'birthplace',
+        'gender'
     ];
 
     /**
@@ -41,4 +47,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function passport()
+    {
+        return $this->hasOne(Passport::class);
+    }
 }

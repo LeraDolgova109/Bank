@@ -1,8 +1,8 @@
 <template>
-    <div class="dialog container" v-if="show === true" >
-        <div class="card" style="width: 35rem;">
+    <div class="dialog row justify-content-md-center">
+        <div class="card col-md-auto" style="width: 35rem;">
             <div class="card-header">
-                Создание пользователя
+                Регистрация
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -72,8 +72,8 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary" @click="hideDialog">Закрыть</button>
-                <button class="btn btn-primary" @click="createUser" style="margin-left: 3px;">Создать</button>
+                <button type="button" class="btn btn-secondary" @click="hideDialog">Войти</button>
+                <button class="btn btn-primary" @click="createUser" style="margin-left: 3px;">Зарегестрироваться</button>
             </div>
         </div>
     </div>
@@ -82,12 +82,6 @@
 <script>
 export default {
     name: "register",
-    props:{
-        show: {
-            type: Boolean,
-            default: false
-        }
-    },
     data() {
         return {
             user: {
@@ -114,13 +108,14 @@ export default {
     methods: {
         hideDialog()
         {
-            this.$emit('update:show', false);
+            this.$router.push('/' + this.$route.params.id);
         },
         createUser()
         {
             var userInfo = this.user;
             var passportInfo = this.passport;
             var data = {
+                'client': this.$route.params.id,
                 'name': userInfo.name,
                 'surname': userInfo.surname,
                 'patronymic': userInfo.patronymic,
@@ -138,14 +133,11 @@ export default {
                     'issue_place': passportInfo.issue_place
                 }
             };
-            this.$store.dispatch('postUser', data);
-            this.$emit('update:show', false);
+            this.$store.dispatch('register', data);
         },
     },
     computed: {
-        users() {
-            return this.$store.getters.getUsers;
-        },
+
     }
 }
 </script>

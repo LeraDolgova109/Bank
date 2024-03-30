@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $service = new UserService();
-        $users = $service->get_users();
+        $users = $service->get_users($request->bearerToken());
         return response() -> json($users);
     }
 
@@ -21,16 +21,16 @@ class UserController extends Controller
         return response() -> json($users);
     }
 
-    public function show($id)
+    public function user(Request $request, $id)
     {
         $service = new UserService();
-        $result = $service->get_user($id);
+        $result = $service->get_user($request->bearerToken(), $id);
         return response() -> json($result);
     }
-    public function show_ban($id)
+    public function show_ban(Request $request, $id)
     {
         $service = new UserService();
-        $result = $service->show_ban($id);
+        $result = $service->show_ban($id, $request->bearerToken());
         return response() -> json($result);
     }
 

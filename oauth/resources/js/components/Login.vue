@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary">Закрыть</button>
+                <button type="button" class="btn btn-secondary" @click="hideDialog">Зарегестрироваться</button>
                 <button class="btn btn-primary" @click="createUser" style="margin-left: 3px;">Войти</button>
             </div>
         </div>
@@ -34,29 +34,29 @@ export default {
         }
     },
     methods: {
+        hideDialog()
+        {
+            this.$router.push('/register/' + this.$route.params.id);
+        },
         createUser()
         {
             var user = this.user;
             var data = {
-                'client': 'staff',
+                'client': this.$route.params.id,
                 'email': user.email,
                 'password': user.password
             };
             this.$store.dispatch('login', data);
-            this.$emit('update:show', false);
         },
     },
     computed: {
-        users() {
-            return this.$store.getters.getUsers;
-        },
+
     }
 }
 </script>
 
 <style scoped>
 .dialog {
-    margin-top: 30px;
     margin-bottom: 5px;
 }
 </style>

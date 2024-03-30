@@ -22,7 +22,12 @@ export default {
     actions: {
         getBanClient(context, id)
         {
-            axios.get('https://gate/api/ban/' + id).then(response => {
+            axios.get('https://gate/api/ban/' + id, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     if (response.data.length == 0)
@@ -53,6 +58,11 @@ export default {
                 "reason": data.ban.reason,
                 "end_time": data.ban.end_time,
                 "role": "customer"
+            }, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             }).then(response => {
                 if (response.status === 200)
                 {
@@ -66,6 +76,11 @@ export default {
         {
             axios.put('https://gate/api/unban/' + data.user_id, {
                 "role": "customer"
+            }, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             }).then(response => {
                 if (response.status === 200)
                 {

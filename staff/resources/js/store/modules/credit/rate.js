@@ -22,7 +22,12 @@ export default {
     actions: {
         getRates(context)
         {
-            axios.get('https://gate/api/rate').then(response => {
+            axios.get('https://gate/api/rate', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setRates', response.data.rates);
@@ -37,6 +42,11 @@ export default {
                 'name': data.name,
                 'description': data.description,
                 'rate': data.rate
+            }, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             }).then(response => {
                 if (response.status === 200)
                 {
@@ -54,6 +64,11 @@ export default {
                 'rate': data.rate,        
                 "status": data.status,
                 "start_date": data.start_date
+            }, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             }).then(response => {
                 if (response.status === 200)
                 {
@@ -65,8 +80,12 @@ export default {
         },
         deleteRate(context, data)
         {
-            axios.delete('https://gate/api/rate/' + data.id
-            ).then(response => {
+            axios.delete('https://gate/api/rate/' + data.id, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.dispatch('getRates');

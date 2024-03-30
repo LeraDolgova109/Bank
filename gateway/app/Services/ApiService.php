@@ -7,11 +7,12 @@ use GuzzleHttp\Exception\RequestException;
 abstract class ApiService
 {
     protected string $endpoint;
-    public function request($method, $path, $data = [])
+    public function request($method, $path, $data = [], $token)
     {  
         $import = new HttpClient();
         
         $headers['Content-Type'] = 'application/json';
+        $headers['Authorization'] = 'Bearer ' . $token;
         $body = $data;
         if ($method == 'POST' || $method == 'PUT') {
             $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers, 'body' => $body));
@@ -19,25 +20,25 @@ abstract class ApiService
         else {
             $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers));
         }
-        //$token = $data['bearerToken'];
+
         $data = json_decode($response->getBody()->getContents());
         return $data;
     }
 
-    public function post($path, $data)
+    public function post($path, $data, $token)
     {
-        return $this->request('POST', $path, $data);
+        return $this->request('POST', $path, $data, $token);
     }
-    public function get($path)
+    public function get($path, $token)
     {
-        return $this->request('GET', $path);
+        return $this->request('GET', $path, [], $token);
     }
-    public function put($path, $data)
+    public function put($path, $data, $token)
     {
-        return $this->request('PUT', $path, $data);
+        return $this->request('PUT', $path, $data, $token);
     }
-    public function delete($path)
+    public function delete($path, $token)
     {
-        return $this->request('DELETE', $path);
+        return $this->request('DELETE', $path, [], $token);
     }
 }

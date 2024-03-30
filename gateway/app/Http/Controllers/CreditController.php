@@ -7,24 +7,24 @@ use Illuminate\Http\Request;
 
 class CreditController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $service = new CreditService();
-        $credits = $service->get_credits();
+        $credits = $service->get_credits($request->bearerToken());
         return response() -> json($credits);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $service = new CreditService();
-        $credits = $service->get_credit_info($id);
+        $credits = $service->get_credit_info($request->bearerToken(), $id);
         return response() -> json($credits);
     }
 
-    public function customer($id)
+    public function customer(Request $request, $id)
     {
         $service = new CreditService();
-        $credits = $service->get_customer_credit($id);
+        $credits = $service->get_customer_credit($request->bearerToken(), $id);
         return response() -> json($credits);
     }
     public function update(Request $request, $id)

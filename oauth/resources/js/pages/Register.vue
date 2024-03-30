@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <h1 class="display-5 text-center">Авторизация</h1>
-        <login ></login>
+        <h1 class="display-5 text-center">Регистрация</h1>
+        <register></register>
     </div>
 </template>
 

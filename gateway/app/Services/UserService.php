@@ -7,37 +7,39 @@ class UserService extends ApiService
 {
     public function __construct()
     {
-        $this->endpoint = "https://auth/api/";
+        $this->endpoint = "https://oauth/api/";
     }
 
-    function get_users()
+    function get_users($token)
     {
-        return $this->get('users');
+        return $this->get('users', $token);
     }
 
-    function get_user($id)
+    function get_user($token, $id)
     {
-        return $this->get("users/$id");
+        return $this->get("users/$id", $token);
     }
-
 
     function create_user(Request $request)
     {
-        return $this->post('create', json_encode($request->all()));
+        $token = $request->bearerToken();
+        return $this->post('create', json_encode($request->all()), $token);
     }
 
     function ban_user(Request $request)
     {
-        return $this->post('ban', json_encode($request->all()));
+        $token = $request->bearerToken();
+        return $this->post('ban', json_encode($request->all()), $token);
     }
 
     function unban_user(Request $request, $id)
     {
-        return $this->put("unban/$id", json_encode($request->all()));
+        $token = $request->bearerToken();
+        return $this->put("unban/$id", json_encode($request->all()), $token);
     }
 
-    function show_ban($id)
+    function show_ban($token, $id)
     {
-        return $this->get("ban/$id");
+        return $this->get("ban/$id", $token);
     }
 }

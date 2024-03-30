@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RedirectController;
 use App\Http\Requests\LoginRequest;
+use App\Models\Passport;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return User::with(['passport'])->get();
     }
 
     public function login(LoginRequest $request)
@@ -36,16 +37,21 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        //$data = $request->validated();
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
-        
+        $data = $request->all();
         $data['password'] = Hash::make($request['password']);
         $user = User::create($data);
-        
-        return response()->json('OK');
+        $data1 = $data['passport'];
+        $data1['user_id'] = $user->id;
+        $passport = Passport::create($data1);
+
+        $credentials = [
+            'email' => $data['email'],
+            'password' => $data['password']
+        ];
+
+        $data['access_token'] = $user->createToken($request->client)->accessToken;
+        $redirest = new RedirectController();
+        return $redirest->redirect($request->client, $data['access_token']);
     }
 
     public function logout()
@@ -53,7 +59,7 @@ class AuthController extends Controller
         return auth()->user()->token()->revoke();
     }
 
-    public function show(string $id)
+    public function show($id)
     {
         return User::find($id);
     }

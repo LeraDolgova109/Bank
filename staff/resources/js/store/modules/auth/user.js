@@ -35,7 +35,12 @@ export default {
     actions: {
         getUsers(context)
         {
-            axios.get('https://gate/api/users').then(response => {
+            axios.get('https://gate/api/users', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setUsers', response.data);
@@ -46,7 +51,12 @@ export default {
         },
         getUserInfo(context, data)
         {
-            axios.get('https://gate/api/users/' + data).then(response => {
+            axios.get('https://gate/api/users/' + data, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setUser', response.data);
@@ -86,7 +96,7 @@ export default {
         },
         login(context)
         {
-            window.location.href = "https://oauth/";
+            window.location.href = "https://oauth/#/staff";
         },
         logout(context)
         {
@@ -102,8 +112,8 @@ export default {
                 if (response.status === 200)
                 {
                     localStorage.setItem('token', 'expired');
-                    window.open("https://staff/#/");
-                    window.close();
+                    window.location.href = "https://staff/#/";
+                    window.location.reload();
                 }
             }).catch(error => {
                 console.log(error);
