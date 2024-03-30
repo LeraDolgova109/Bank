@@ -10,31 +10,29 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to="/">Главная</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="token != nullToken">
                         <router-link class="nav-link" to="/users">Пользователи</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="token != nullToken">
                         <router-link class="nav-link" to="/customers">Клиенты</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="token != nullToken">
                         <router-link class="nav-link" to="/staffs">Сотрудники</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="token != nullToken">
                         <router-link class="nav-link" to="/credits">Кредиты</router-link>
                     </li>
                 </ul>
             </div>
             <b-navbar-nav class="ml-auto">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-if="token == nullToken">
-                    <li class="nav-item">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" v-if="token == nullToken">
                         <router-link class="nav-link" to="/login">Вход</router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" to="/register">Регистрация</router-link>
+                    <li class="nav-item" v-if="token != nullToken">
+                        <router-link class="nav-link" to="/settings">Настройки</router-link>
                     </li>
-                </ul>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-else>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="token != nullToken">
                         <router-link class="nav-link" to="/logout">Выход</router-link>
                     </li>
                 </ul>
@@ -48,15 +46,10 @@ export default {
     name: 'navbar',
     data()  {
         return {
-            token: '',
+            token: this.$store.getters.getToken,
             nullToken: 'expired',
         }
     },
-    mounted() {
-        if (localStorage.token) {
-            this.token = localStorage.token;
-        }
-    }
 }
 </script>
 

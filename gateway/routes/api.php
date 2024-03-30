@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('users', [\App\Http\Controllers\UserController::class, 'index']);
-Route::get('users/{user}', [\App\Http\Controllers\UserController::class, 'show']);
+Route::get('users/{user}', [\App\Http\Controllers\UserController::class, 'user']);
 Route::post('create', [\App\Http\Controllers\UserController::class, 'create']);
 Route::get('/ban/{ban}', [\App\Http\Controllers\UserController::class, 'show_ban']);
 Route::post('/ban', [\App\Http\Controllers\UserController::class, 'ban']);
@@ -32,5 +32,10 @@ Route::put('loan/{loan}', [\App\Http\Controllers\CreditController::class, 'updat
 
 Route::get('customer', [\App\Http\Controllers\CustomerController::class, 'index']);
 Route::get('customer/{customer}', [\App\Http\Controllers\CustomerController::class, 'show']);
+Route::post('/customer', [\App\Http\Controllers\CustomerController::class, 'create']);
 
 Route::get('account/{account}/transaction', [\App\Http\Controllers\AccountController::class, 'show']);
+Route::post('/account', [\App\Http\Controllers\AccountController::class, 'open']);
+Route::delete('/account/{account}', [\App\Http\Controllers\AccountController::class, 'close']);
+Route::post('/account/{account}/replenish', [\App\Http\Controllers\AccountController::class, 'replenish']);
+Route::post('/account/{account}/debit', [\App\Http\Controllers\AccountController::class, 'debit']);

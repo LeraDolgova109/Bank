@@ -31,7 +31,12 @@ export default {
     actions: {
         getCustomers(context)
         {
-            axios.get('https://gate/api/customer').then(response => {
+            axios.get('https://gate/api/customer', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setCustomers', response.data.customers);
@@ -42,7 +47,12 @@ export default {
         },
         getCustomer(context, id)
         {
-            axios.get('https://gate/api/customer/' + id).then(response => {
+            axios.get('https://gate/api/customer/' + id, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setCustomer', response.data);

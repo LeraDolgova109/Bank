@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class RateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $service = new RateService();
-        $rates = $service->get_rates();
+        $rates = $service->get_rates($request->bearerToken());
         return response() -> json($rates);
     }
 
@@ -27,10 +27,10 @@ class RateController extends Controller
         $result = $service->update_rate($request, $id);
         return response() -> json($result);
     }
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         $service = new RateService();
-        $result = $service->delete_rate($id);
+        $result = $service->delete_rate($request->bearerToken(), $id);
         return response() -> json($result);
     }
 }

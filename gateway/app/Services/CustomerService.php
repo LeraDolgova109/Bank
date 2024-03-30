@@ -10,13 +10,18 @@ class CustomerService extends ApiService
         $this->endpoint = "https://core/api/";
     }
 
-    function get_customers()
+    function get_customers($token)
     {
-        return $this->get('customer');
+        return $this->get('customer', $token);
     }
 
-    function get_customer($id)
+    function get_customer($token, $id)
     {
-        return $this->get("customer/$id");
+        return $this->get("customer/$id", $token);
+    }
+
+    function create_customer(Request $request)
+    {
+        return $this->post('customer', json_encode($request->all()), $request->bearerToken());
     }
 }

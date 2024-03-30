@@ -2,7 +2,7 @@ import axios from "axios";
 export default {
     state: {
         users: [],
-        user: {}
+        user: {},
     },
     mutations: {
         setUsers(state, payload)
@@ -26,12 +26,21 @@ export default {
         getUser(state)
         {
             return state.user
+        },
+        getToken(state)
+        {
+            return localStorage.getItem('token');
         }
     },
     actions: {
         getUsers(context)
         {
-            axios.get('https://gate/api/users').then(response => {
+            axios.get('https://gate/api/users', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setUsers', response.data);
@@ -42,7 +51,12 @@ export default {
         },
         getUserInfo(context, data)
         {
-            axios.get('https://gate/api/users/' + data).then(response => {
+            axios.get('https://gate/api/users/' + data, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setUser', response.data);
@@ -80,13 +94,26 @@ export default {
                 console.log(error);
             })
         },
-        deleteUser(context, data)
+        login(context)
         {
-            axios.delete('' + data.id
-            ).then(response => {
+            window.location.href = "https://oauth/#/staff";
+        },
+        logout(context)
+        {
+            axios.post('https://oauth/api/logout', {},
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                }
+            )
+            .then(response => {
                 if (response.status === 200)
                 {
-                    context.dispatch('getUsers');
+                    localStorage.setItem('token', 'expired');
+                    window.location.href = "https://staff/#/";
+                    window.location.reload();
                 }
             }).catch(error => {
                 console.log(error);

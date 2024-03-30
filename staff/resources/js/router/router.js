@@ -1,6 +1,9 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHashHistory } from 'vue-router'
 import Main from '../pages/Main.vue'
 import User from "../pages/Auth/User.vue";
+import Callback from "../pages/Auth/Callback.vue";
+import Logout from "../pages/Auth/Logout.vue";
+import Login from "../pages/Auth/Login.vue";
 import Customer from "../pages/Core/Customer.vue";
 import CustomerInfo from "../pages/Core/CustomerInfo.vue";
 import Ban from "../pages/Core/Ban.vue";
@@ -9,6 +12,7 @@ import StaffInfo from "../pages/Staff/StaffInfo.vue";
 import Credit from "../pages/Credit/Credit.vue";
 import CreditInfo from "../pages/Credit/CreditInfo.vue";
 import Rate from "../pages/Credit/Rate.vue";
+import Settings from "../pages/Settings.vue";
 
 const routes = [
     {
@@ -53,13 +57,25 @@ const routes = [
     },
     {
         path: '/logout',
-        component: Main
+        component: Logout
+    },
+    {
+        path: '/login',
+        component: Login
+    },
+    {
+        path: '/settings',
+        component: Settings
+    },
+    {
+        path: '/callback/:id',
+        component: Callback
     },
 ]
 
 const router = createRouter({
     routes,
-    history: createWebHistory()
+    history: createWebHashHistory()
 })
 
 export default router;

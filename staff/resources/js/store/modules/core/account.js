@@ -22,7 +22,12 @@ export default {
     actions: {
         getAccounts(context, data)
         {
-            axios.get('https://gate/api/customer/' + data).then(response => {
+            axios.get('https://gate/api/customer/' + data, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setAccounts', response.data.accounts);

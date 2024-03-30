@@ -10,22 +10,22 @@ class CreditService extends ApiService
         $this->endpoint = "https://bank-credit/api/";
     }
 
-    function get_credits()
+    function get_credits($token)
     {
-        return $this->get('loan');
+        return $this->get('loan', $token);
     }
 
-    function get_credit_info($id)
+    function get_credit_info($token, $id)
     {
-        return $this->get("loan/$id");
+        return $this->get("loan/$id", $token);
     }
     
-    function get_customer_credit($id)
+    function get_customer_credit($token, $id)
     {
-        return $this->get("customer/$id/loan");
+        return $this->get("customer/$id/loan", $token);
     }
     function update_credit(Request $request, $id)
     {
-        return $this->put("loan/$id", json_encode($request->all()));
+        return $this->put("loan/$id", json_encode($request->all()), $request->bearerToken());
     }
 }

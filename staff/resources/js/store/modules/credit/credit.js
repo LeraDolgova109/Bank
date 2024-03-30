@@ -31,7 +31,12 @@ export default {
     actions: {
         getCredits(context)
         {
-            axios.get('https://gate/api/loan').then(response => {
+            axios.get('https://gate/api/loan', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setCredits', response.data.loans);
@@ -42,7 +47,12 @@ export default {
         },
         getCredit(context, id)
         {
-            axios.get('https://gate/api/loan/' + id).then(response => {
+            axios.get('https://gate/api/loan/' + id, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setCredit', response.data);
@@ -53,7 +63,12 @@ export default {
         },
         getCustomerCredits(context, id)
         {
-            axios.get('https://gate/api/customer/' + id + '/loan').then(response => {
+            axios.get('https://gate/api/customer/' + id + '/loan', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
                 if (response.status === 200)
                 {
                     context.commit('setCredits', response.data.loans);
@@ -83,6 +98,11 @@ export default {
                 "amount": data.amount,
                 "term": data.term,
                 "status": data.status
+            }, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
             }).then(response => {
                 if (response.status === 200)
                 {
