@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
-    Route::get('/users/{user}', [App\Http\Controllers\Api\AuthController::class, 'show']);
     Route::get('/users', [App\Http\Controllers\Api\AuthController::class, 'index']);
+    Route::get('/users/{user}', [App\Http\Controllers\Api\AuthController::class, 'show']);
     Route::get('/ban/{ban}', [\App\Http\Controllers\Api\BanController::class, 'show']);
     Route::post('/ban', [\App\Http\Controllers\Api\BanController::class, 'ban']);
     Route::put('/unban/{user}', [\App\Http\Controllers\Api\BanController::class, 'unban']);

@@ -43,6 +43,14 @@ export default {
                 }
             }).catch(error => {
                 console.log(error);
+                if (error.response.status === 422)
+                {
+                    alert('Неправильный логин или пароль');
+                }
+                else
+                {
+                    alert(error.response.data);
+                }
             })
         },
         register(context, data)

@@ -116,7 +116,9 @@ export default {
                 ).then(response => {
                     if (response.status === 200)
                     {
-                        context.commit('setSettings', response.data.mode);
+                        if (response.data.mode){
+                            context.commit('setSettings', response.data.mode);
+                        }
                     }
                 })
                 }
