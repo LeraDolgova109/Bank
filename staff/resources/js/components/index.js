@@ -1,4 +1,5 @@
 import Navbar from "./navs/Navbar.vue";
+import NavbarDark from "./navs/NavbarDark.vue";
 import Navtab_1 from "./navs/Navtab_1.vue";
 import Navtab_2 from "./navs/Navtab_2.vue";
 import AccountTable from "./tables/AccountTable.vue";
@@ -26,6 +27,7 @@ import TransactionInfo from "./modals/Transaction/TransactionInfo.vue";
 
 export default [
     Navbar,
+    NavbarDark,
     Navtab_1,
     Navtab_2,
     AccountTable,

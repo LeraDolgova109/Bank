@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RedirectController;
 use App\Http\Requests\LoginRequest;
+use App\Models\Ban;
 use App\Models\Passport;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,6 +30,13 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+            $ban = Ban::where([
+                ['user_id', '=', $user->id], 
+                ['role', '=', $request->client],        
+            ])->first();
+            if ($ban != null) {
+                return response()->json('User is banned due to ' . $ban->end_time, 403);
+            }
             $data['access_token'] = $user->createToken('access_token')->accessToken;
             $redirest = new RedirectController();
             return $redirest->redirect($request->client, $data['access_token']);

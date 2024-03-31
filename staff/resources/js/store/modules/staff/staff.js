@@ -2,7 +2,8 @@ import axios from "axios";
 export default {
     state: {
         staffs: [],
-        staff: {}
+        staff: {},
+        mode: "light"
     },
     mutations: {
         setStaffs(state, payload)
@@ -12,6 +13,10 @@ export default {
         setStaff(state, payload)
         {
             state.staff = payload
+        },
+        setSettings(state, payload)
+        {
+            state.mode = payload
         },
         addStaff(state, payload)
         {
@@ -26,6 +31,10 @@ export default {
         getStaff(state)
         {
             return state.staff
+        },
+        getSettings(state)
+        {
+            return state.mode
         }
     },
     actions: {
@@ -85,6 +94,60 @@ export default {
                 if (response.status === 200)
                 {
                     context.dispatch('getStaffs');
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        settings(context)
+        {
+            axios.get('https://oauth/api/user',
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }
+            ).then(response => {
+                if (response.status === 200)
+                {
+                    axios.get('/api/staffs/settings/' + response.data,
+                    
+                ).then(response => {
+                    if (response.status === 200)
+                    {
+                        if (response.data.mode){
+                            context.commit('setSettings', response.data.mode);
+                        }
+                    }
+                })
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        postSettings(context, data)
+        {
+            axios.get('https://oauth/api/user',
+            {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }
+            ).then(response => {
+                if (response.status === 200)
+                {
+                    axios.post('/api/staffs/settings/' + response.data,
+                {
+                    "mode": data
+                } 
+                ).then(response => {
+                    if (response.status === 200)
+                    {
+                        context.commit('setSettings', response.data.mode);
+                    }
+                })
                 }
             }).catch(error => {
                 console.log(error);

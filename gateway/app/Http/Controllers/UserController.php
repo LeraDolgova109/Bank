@@ -30,7 +30,7 @@ class UserController extends Controller
     public function show_ban(Request $request, $id)
     {
         $service = new UserService();
-        $result = $service->show_ban($id, $request->bearerToken());
+        $result = $service->show_ban($request->bearerToken(), $id);
         return response() -> json($result);
     }
 
