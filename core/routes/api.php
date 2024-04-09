@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,7 @@ Route::delete('/account/{account}', [AccountController::class, 'close']);
 Route::get('/account/{account}/transaction', [AccountController::class, 'transactions']);//staff || user(owner)
 Route::post('/account/{account}/replenish', [AccountController::class, 'replenish']);//user(owner) || credit
 Route::post('/account/{account}/debit', [AccountController::class, 'debit']);//user(owner) || credit
+Route::post('/account/{account}/transfer', [AccountController::class, 'transfer']);
+Route::get('/account/master', [AccountController::class, 'get_master']);
 
+Route::get('/currency', [CurrencyController::class, 'index']);

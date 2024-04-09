@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class Account extends Model
 {
@@ -21,6 +23,7 @@ class Account extends Model
         'status',
         'type_id',
         'balance',
+        'currency_id',
     ];
 
     public function type(): BelongsTo
@@ -36,6 +39,11 @@ class Account extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function close()
@@ -71,5 +79,40 @@ class Account extends Model
         }
         AccessTransaction::dispatch($transaction)
             ->delay(now()->addSeconds(5));
+    }
+
+    public function transfer(int $amount, string $recipient_id, string $add_info = '')
+    {
+        try {
+            $recipient = Account::findOrFail($recipient_id);
+            DB::transaction(function () use ($amount, $recipient, $add_info) {
+                if ($this->balance - $amount < 0) {
+                    throw new \Exception();
+                }
+                $this->balance = $this->balance - $amount;
+                $this->save();
+                $this->transactions()->create([
+                    'type' => 'debiting',
+                    'status' => 'success',
+                    'amount' => $amount,
+                    'add_info' => $add_info,
+                ]);
+                if ($this->currency->id != $recipient->currency->id){
+                    $response = Http::get('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/' . $this->currency->slug . '.json')->json();
+                    $amount = (int)($amount * $response[$this->currency->slug][$recipient->currency->slug]);
+                }
+                $recipient->balance = $recipient->balance + $amount;
+                $recipient->save();
+                $recipient->transactions()->create([
+                    'type' => 'replenishment',
+                    'status' => 'success',
+                    'amount' => $amount,
+                    'add_info' => $add_info,
+                ]);
+            });
+        } catch (\Exception) {
+            throw new \Exception('Во время проведения перевода произошла ошибка! Попробуйте позже.');
+        }
+
     }
 }
