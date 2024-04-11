@@ -18,7 +18,7 @@ class TransactionResource extends JsonResource
             'account_id' => $this->account_id,
             'type' => $this->type,
             'status' => $this->status,
-            'amount' => $this->amount,
+            'amount' => bcdiv($this->amount / 100, 1, 2),
             'add_info' => $this->add_info,
             'success_datetime' => $this->success_datetime,
             'created_at' => $this->created_at

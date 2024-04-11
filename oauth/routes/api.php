@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/ban/{ban}', [\App\Http\Controllers\Api\BanController::class, 'show']);
     Route::post('/ban', [\App\Http\Controllers\Api\BanController::class, 'ban']);
     Route::put('/unban/{user}', [\App\Http\Controllers\Api\BanController::class, 'unban']);
+    Route::post('/role', [\App\Http\Controllers\Api\RoleController::class, 'create']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

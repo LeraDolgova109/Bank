@@ -16,7 +16,8 @@ class AccountResource extends JsonResource
             'close_date' => $this->close_date,
             'status' => $this->status,
             'type' => $this->type->slug,
-            'balance' => $this->balance,
+            'currency' => $this->currency->slug,
+            'balance' => bcdiv($this->balance / 100, 1, 2),
             'transactions' => TransactionResource::collection($this->transactions)
         ];
     }
