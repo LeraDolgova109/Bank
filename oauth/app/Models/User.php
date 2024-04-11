@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Passport::class);
     }
+
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
 }

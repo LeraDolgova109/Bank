@@ -8,6 +8,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Ban;
 use App\Models\Passport;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,7 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return User::with(['passport'])->get();
+        return User::with(['passport', 'roles'])->get();
     }
 
     public function login(LoginRequest $request)
@@ -34,13 +35,20 @@ class AuthController extends Controller
                 ['user_id', '=', $user->id], 
                 ['role', '=', $request->client],        
             ])->first();
-            if ($ban != null) {
-                return response()->json('User is banned due to ' . $ban->end_time, 403);
+            if ($ban != null && $ban->end_time > Carbon::now()) 
+            {
+                return response()->json('User is banned due to ' . $ban->end_time 
+                                . ', reason: ' . $ban->reason, 403);
+            }
+            else if ($ban != null)
+            {
+                $ban->delete();
             }
             $data['access_token'] = $user->createToken('access_token')->accessToken;
             $redirest = new RedirectController();
             return $redirest->redirect($request->client, $data['access_token']);
         }    
+        return response() -> json("Wrong email or password.", 400);
     }
 
     public function register(Request $request)
@@ -69,6 +77,6 @@ class AuthController extends Controller
 
     public function show($id)
     {
-        return User::find($id);
+        return User::with(['passport', 'roles'])->where('id', '=', $id)->first();
     }
 }
