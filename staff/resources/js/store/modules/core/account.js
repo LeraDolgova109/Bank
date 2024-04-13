@@ -2,7 +2,8 @@ import axios from "axios";
 export default {
     state: {
         accounts: [],
-        hidden: []
+        hidden: [],
+        currency: []
     },
     mutations: {
         setAccounts(state, payload)
@@ -16,7 +17,11 @@ export default {
         addAccount(state, payload)
         {
             state.accounts.push(payload)
-        }
+        },
+        setCurrency(state, payload)
+        {
+            state.currency = payload
+        },
     },
     getters: {
         getAccounts(state)
@@ -26,7 +31,11 @@ export default {
         getHidden(state)
         {
             return state.hidden
-        }
+        },
+        getCurrency(state)
+        {
+            return state.currency
+        },
     },
     actions: {
         getAccounts(context, data)
@@ -131,6 +140,23 @@ export default {
                 if (response.status === 200)
                 {
                     context.dispatch('getAccounts');
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+
+        getCurrency(context)
+        {
+            axios.get('https://gate/api/currency', {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
+                if (response.status === 200)
+                {
+                    context.commit('setCurrency', response.data);
                 }
             }).catch(error => {
                 console.log(error);

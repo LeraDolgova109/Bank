@@ -11,16 +11,24 @@ abstract class ApiService
     {  
         $import = new HttpClient();
         
+        $headers['Accept'] = 'application/json';
         $headers['Content-Type'] = 'application/json';
         $headers['Authorization'] = 'Bearer ' . $token;
         $body = $data;
-        if ($method == 'POST' || $method == 'PUT') {
-            $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers, 'body' => $body));
+        try {
+            if ($method == 'POST' || $method == 'PUT') {
+                $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers, 'body' => $body));
+                
+            }
+            else {
+                $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers));
+            }
         }
-        else {
-            $response = $import->client->request($method, $this->endpoint . $path, array('headers' => $headers));
+        catch (RequestException $e) {
+            $response = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+            abort($e->getCode(), $responseBodyAsString);
         }
-
         $data = json_decode($response->getBody()->getContents());
         return $data;
     }
