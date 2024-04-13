@@ -40,4 +40,8 @@ Route::middleware('user')->group(function () {
     Route::delete('/account/{account}', [\App\Http\Controllers\AccountController::class, 'close']);
     Route::post('/account/{account}/replenish', [\App\Http\Controllers\AccountController::class, 'replenish']);
     Route::post('/account/{account}/debit', [\App\Http\Controllers\AccountController::class, 'debit']);
+    Route::post('/account/{account}/transfer', [\App\Http\Controllers\AccountController::class, 'transfer']);
+    Route::get('/account/master', [\App\Http\Controllers\AccountController::class, 'get_master']);
+
+    Route::get('/currency', [\App\Http\Controllers\CurrencyController::class, 'index']);
 });

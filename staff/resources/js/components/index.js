@@ -8,6 +8,7 @@ import CustomerTable from "./tables/CustomerTable.vue";
 import RateTable from "./tables/RateTable.vue";
 import StaffTable from "./tables/StaffTable.vue";
 import UserTable from "./tables/UserTable.vue";
+import CurrencyTable from "./tables/CurrencyTable.vue";
 import CustomerCreate from "./modals/Customer/CustomerCreate.vue";
 import CustomerUpdate from "./modals/Customer/CustomerUpdate.vue";
 import CustomerDelete from "./modals/Customer/CustomerDelete.vue";
@@ -36,6 +37,7 @@ export default [
     RateTable,
     StaffTable,
     UserTable,
+    CurrencyTable,
     CustomerCreate,
     CustomerUpdate,
     CustomerDelete,

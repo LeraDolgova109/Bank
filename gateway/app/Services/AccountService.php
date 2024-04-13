@@ -34,4 +34,14 @@ class AccountService extends ApiService
     {
         return $this->post("account/$id/debit", json_encode($request->all()),$request->bearerToken());
     }
+
+    function transfer(Request $request, $id)
+    {
+        return $this->post("account/$id/transfer", json_encode($request->all()),$request->bearerToken());
+    }
+
+    function get_master($token)
+    {
+        return $this->get("account/master", $token);
+    }
 }

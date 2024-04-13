@@ -8,6 +8,7 @@
             <th scope="col">Статус</th>
             <th scope="col">Тип</th>
             <th scope="col">Баланс</th>
+            <th scope="col">Валюта</th>
             <th scope="col">Видимость</th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -23,6 +24,7 @@
             <td>{{ account.status }}</td>
             <td>{{ account.type }}</td>
             <td>{{ account.balance }}</td>
+            <td>{{ account.currency }}</td>
             <td >
                 <p v-if="compare(account)">Скрыт</p>
                 <p v-else>Виден</p>

@@ -41,4 +41,18 @@ class AccountController extends Controller
         $account = $service->debit($request, $id);
         return response() -> json($account);
     }
+
+    public function transfer(Request $request, $id)
+    {
+        $service = new AccountService();
+        $account = $service->transfer($request, $id);
+        return response() -> json($account);
+    }
+
+    public function get_master(Request $request)
+    {
+        $service = new AccountService();
+        $account = $service->get_master($request->bearerToken());
+        return response() -> json($account);
+    }
 }

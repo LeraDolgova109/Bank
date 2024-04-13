@@ -26,6 +26,7 @@ export default {
         return{
             dialogUpdate: false,
             dialogUser: false,
+            connection: null
         }
     },
     methods: {
@@ -55,6 +56,14 @@ export default {
         hidden() {
             return this.$store.getters.getHidden;
         },
+    },
+    created: function() 
+    {
+        this.connection = new WebSocket("wss://echo.websocket.org")
+
+        this.connection.onmessage = function(event) {
+            console.log(event.data);
+        }
     }
 }
 </script>
