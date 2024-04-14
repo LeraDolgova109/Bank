@@ -54,7 +54,7 @@ export default {
         return {
             dialogUpdate: false,
             dialogDelete: false,
-            selectedAccount: null,
+            selectedAccount: {},
         }
     },
     methods: {
@@ -63,8 +63,8 @@ export default {
         },
         showUpdateDialog(account){
             this.$store.dispatch('getTransactions', account);
-            this.dialogUpdate = !this.dialogUpdate;
             this.selectedAccount = account;
+            this.dialogUpdate = !this.dialogUpdate;
         },
         compare(account) {
             let result = false;

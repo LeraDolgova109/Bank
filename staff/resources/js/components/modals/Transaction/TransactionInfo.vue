@@ -25,40 +25,35 @@
 </template>
 
 <script>
+
 export default {
     name: "transaction-info",
-        props:{
-            show: {
-                type: Boolean,
-                default: false
-            },
-            account: {
-                type: Object
-            }
+    props:{
+        show: {
+            type: Boolean,
+            default: false
         },
-        data() {
-            return {
+        account: {
+            type: Object
+        },
+    },
+    data() {
+        return {
 
-            }
-        },
-        methods: {
-            hideDialog()
-            {
-                this.$emit('update:show', false);
-            },
-            updateCustomer()
-            {
-                this.$store.dispatch('updateCustomer', this.customer.customer);
-                this.$emit('update:show', false);
-            }
-        },
-        computed: {
-            transactions() {
-                return this.$store.getters.getTransactions;
-            },
         }
-        
+    },
+    methods: {
+        hideDialog()
+        {
+            this.$emit('update:show', false);
+        },
+    },
+    computed: {
+        transactions() {
+            return this.$store.getters.getTransactions;
+        },
     }
+}
 </script>
 
 <style scoped>

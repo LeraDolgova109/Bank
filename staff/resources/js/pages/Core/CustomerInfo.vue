@@ -57,14 +57,6 @@ export default {
             return this.$store.getters.getHidden;
         },
     },
-    created: function() 
-    {
-        this.connection = new WebSocket("wss://echo.websocket.org")
-
-        this.connection.onmessage = function(event) {
-            console.log(event.data);
-        }
-    }
 }
 </script>
 

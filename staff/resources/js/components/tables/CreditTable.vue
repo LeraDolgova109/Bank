@@ -1,5 +1,5 @@
 <template>
-    <transaction-info v-model:show="dialogUpdate" v-model:transactions="selectedCredit"/>
+    <!-- <transaction-info v-model:show="dialogUpdate" v-model:transactions="selectedCredit"/> -->
     <table class="table">
         <thead>
             <tr>
