@@ -1,4 +1,6 @@
 import axios from "axios";
+import Pusher from 'pusher-js';
+
 export default {
     state: {
         transactions: []
@@ -22,6 +24,12 @@ export default {
     actions: {
         getTransactions(context, data)
         {
+            const pusher = new Pusher('a173d1abb1760a1de4ae', { cluster: 'eu' });
+            const channel = pusher.subscribe('account'+data.id);
+            channel.bind('TransactionCreated', (data) => {
+                data.model.amount /= 100; 
+                context.commit('addTransaction', data.model);
+            });
             axios.get('https://gate/api/account/'+ data.id + '/transaction', {
                 headers: {
                     "Content-type": "application/json",
