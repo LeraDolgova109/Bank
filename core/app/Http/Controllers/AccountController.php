@@ -8,8 +8,10 @@ use App\Http\Requests\Account\ReplenishRequest;
 use App\Http\Requests\Account\TransferRequest;
 use App\Http\Resources\AccountResource;
 use App\Http\Resources\AccountShortResource;
+use App\Http\Resources\TransactionResource;
 use App\Models\Account;
 use App\Models\AccountType;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Nette\Utils\Type;
 
@@ -27,9 +29,13 @@ class AccountController extends Controller
         return response(['message' => 'Success'], 200);
     }
 
-    public function transactions(Account $account)
+    public function transaction_list(Account $account)
     {
         return response(AccountResource::make($account));
+    }
+
+    public function transaction(Transaction $transaction){
+        return response(TransactionResource::make($transaction));
     }
 
     public function replenish(ReplenishRequest $request, Account $account)
