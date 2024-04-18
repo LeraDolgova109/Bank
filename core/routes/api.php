@@ -24,10 +24,12 @@ Route::post('/customer/{customer}/ban', [CustomerController::class, 'add_ban']);
 
 Route::post('/account', [AccountController::class, 'open']);
 Route::delete('/account/{account}', [AccountController::class, 'close']);
-Route::get('/account/{account}/transaction', [AccountController::class, 'transactions']);//staff || user(owner)
+Route::get('/account/{account}/transaction', [AccountController::class, 'transaction_list']);//staff || user(owner)
 Route::post('/account/{account}/replenish', [AccountController::class, 'replenish']);//user(owner) || credit
 Route::post('/account/{account}/debit', [AccountController::class, 'debit']);//user(owner) || credit
 Route::post('/account/{account}/transfer', [AccountController::class, 'transfer']);
 Route::get('/account/master', [AccountController::class, 'get_master']);
+
+Route::get('transaction/{transaction}', [AccountController::class, 'transaction']);
 
 Route::get('/currency', [CurrencyController::class, 'index']);
