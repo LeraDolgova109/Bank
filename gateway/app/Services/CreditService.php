@@ -19,6 +19,11 @@ class CreditService extends ApiService
     {
         return $this->get("loan/$id", $token);
     }
+
+    function get_rating($token, $id)
+    {
+        return $this->get("rating/$id", $token);
+    }
     
     function get_customer_credit($token, $id)
     {

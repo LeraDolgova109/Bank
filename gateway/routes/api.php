@@ -30,7 +30,8 @@ Route::middleware('user')->group(function () {
     Route::get('loan/{loan}', [\App\Http\Controllers\CreditController::class, 'show']);
     Route::get('customer/{customer}/loan', [\App\Http\Controllers\CreditController::class, 'customer']);
     Route::put('loan/{loan}', [\App\Http\Controllers\CreditController::class, 'update']);
-
+    Route::get('rating/{customer_id}', [\App\Http\Controllers\CreditController::class, 'rating']);
+    
     Route::get('customer', [\App\Http\Controllers\CustomerController::class, 'index']);
     Route::get('customer/{customer}', [\App\Http\Controllers\CustomerController::class, 'show']);
     Route::post('/customer', [\App\Http\Controllers\CustomerController::class, 'create']);

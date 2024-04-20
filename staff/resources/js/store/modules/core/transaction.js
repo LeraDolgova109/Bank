@@ -29,6 +29,7 @@ export default {
             channel.bind('TransactionCreated', (data) => {
                 data.model.amount /= 100; 
                 context.commit('addTransaction', data.model);
+                alert('New transaction with amount: ' + data.model.amount)
             });
             axios.get('https://gate/api/account/'+ data.id + '/transaction', {
                 headers: {

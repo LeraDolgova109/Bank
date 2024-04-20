@@ -48,6 +48,8 @@
             </div>
             <button type="button" class="btn btn-warning" @click="showUpdateDialog(credit)">Изменить</button>
             <credit-update v-model:show="dialogUpdate" v-model:credit="selectedCredit"/>
+            <h2>Платежи по кредиту</h2>
+            <payment-info></payment-info>
         </div>
     </div>
 </template>
@@ -92,6 +94,10 @@ button{
 }
 
 credit-update{
+    margin-top: 10px;
+}
+
+h2{
     margin-top: 10px;
 }
 </style>

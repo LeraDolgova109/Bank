@@ -2,7 +2,9 @@ import axios from "axios";
 export default {
     state: {
         credits: [],
-        credit: {}
+        credit: {},
+        payments: [],
+        rating: 0
     },
     mutations: {
         setCredits(state, payload)
@@ -12,6 +14,14 @@ export default {
         setCredit(state, payload)
         {
             state.credit = payload
+        },
+        setPayments(state, payload)
+        {
+            state.payments = payload
+        },
+        setRating(state, payload)
+        {
+            state.rating = payload
         },
         addCredit(state, payload)
         {
@@ -26,6 +36,14 @@ export default {
         getCredit(state)
         {
             return state.credit
+        },
+        getPayments(state)
+        {
+            return state.payments
+        },
+        getRating(state)
+        {
+            return state.rating
         }
     },
     actions: {
@@ -56,6 +74,7 @@ export default {
                 if (response.status === 200)
                 {
                     context.commit('setCredit', response.data);
+                    context.commit('setPayments', response.data.payments);
                 }
             }).catch(error => {
                 console.log(error);
@@ -72,6 +91,22 @@ export default {
                 if (response.status === 200)
                 {
                     context.commit('setCredits', response.data.loans);
+                }
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        getRating(context, id)
+        {
+            axios.get('https://gate/api/rating/' + id, {
+                headers: {
+                    "Content-type": "application/json",
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(response => {
+                if (response.status === 200)
+                {
+                    context.commit('setRating', response.data.rating);
                 }
             }).catch(error => {
                 console.log(error);
