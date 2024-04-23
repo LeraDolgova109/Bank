@@ -20,6 +20,4 @@ class RedirectController extends Controller
     
         return $client->redirect.$token;
     }
-
-
 }
