@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - "89:89"
+    volumes:
+      - ../:/var/www
+      - ./nginx/:/etc/nginx/conf.d
+    links:
+      - logs_app
+
+  logs_app:
+    container_name: logs_app
+    build: /logs
+    volumes:
+      - ../logs:/var/www/logs
+    ports:
+      - "9009:9000"
+
+#  app:#    container_name: app
+#    build: ../modules/backend/_docker
+#    volumes:
+#      - ../app:/var/www/app
+#    links:
+#      - db
+#    ports:
+#      - "9000:9000"
+
+#  db:
+#    image: postgres
+#    volumes:
+#      - ../tmp/db/backend:/var/lib/postgresql
+#    environment:
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_DB=db
+#    ports:
+#      - "5432:5432"
+#    container_name: db
