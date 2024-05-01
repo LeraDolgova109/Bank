@@ -31,3 +31,8 @@ Route::post('/account/{account}/transfer', [AccountController::class, 'transfer'
 Route::get('/account/master', [AccountController::class, 'get_master']);
 
 Route::get('/currency', [CurrencyController::class, 'index']);
+
+Route::post('test', function (){
+    $logsService = new \App\Services\LogsService();
+    $logsService->send('debug', 'log core');
+});
