@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.1-fpm
 
 RUN apt-get update && apt-get install -y \
       apt-utils \
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
       docker-php-ext-install bcmath && \
       docker-php-ext-install gd && \
       docker-php-ext-install zip && \
+      docker-php-ext-install sockets && \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
