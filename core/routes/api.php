@@ -34,5 +34,5 @@ Route::get('/currency', [CurrencyController::class, 'index']);
 
 Route::post('test', function (){
     $logsService = new \App\Services\LogsService();
-    $logsService->send('debug', 'check');
+    $logsService->send('debug', 'log core');
 });
