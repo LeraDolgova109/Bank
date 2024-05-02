@@ -23,7 +23,7 @@ abstract class ApiService
             }
         }
         catch (RequestException $e) {
-            if ($e->getCode() == 500 && $this->attemps < 10)
+            if ($e->getCode() == 500 && $this->attemps == 7)
             {
                 $this->attemps += 1;
                 $this->retry($method, $import, $path, $headers, $body);

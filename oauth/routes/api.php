@@ -24,10 +24,10 @@ Route::middleware('error')->group(function () {
         Route::put('/unban/{user}', [\App\Http\Controllers\Api\BanController::class, 'unban']);
         Route::post('/role', [\App\Http\Controllers\Api\RoleController::class, 'create']);
     });
-
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user()->id;
-    });
-    Route::post('/register', [App\Http\Controllers\Api\AuthController::class, 'register']);
-    Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
 });
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user()->id;
+});
+Route::post('/register', [App\Http\Controllers\Api\AuthController::class, 'register']);
+Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);

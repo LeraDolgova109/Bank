@@ -1,4 +1,5 @@
 import axios from "axios";
+import { generateKey } from "../../../components/helpers/keys";
 export default {
     state: {
         users: [],
@@ -38,7 +39,8 @@ export default {
             axios.get('https://gate/api/users', {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'X-Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -54,7 +56,8 @@ export default {
             axios.get('https://gate/api/users/' + data, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -68,7 +71,8 @@ export default {
         postUser(context, data)
         {
             const headers = {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Idempotency-key': generateKey()
               }
             axios.post('https://gate/api/create', data, {
                 headers: headers
@@ -104,7 +108,8 @@ export default {
                 {
                     headers: {
                         "Content-type": "application/json",
-                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                        'Idempotency-key': generateKey()
                     }
                 }
             )

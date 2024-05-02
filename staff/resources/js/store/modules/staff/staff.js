@@ -118,6 +118,7 @@ export default {
                     {
                         if (response.data.mode){
                             context.commit('setSettings', response.data.mode);
+                            return true;
                         }
                     }
                 })
@@ -146,6 +147,7 @@ export default {
                     if (response.status === 200)
                     {
                         context.commit('setSettings', response.data.mode);
+                        return true;
                     }
                 })
                 }
