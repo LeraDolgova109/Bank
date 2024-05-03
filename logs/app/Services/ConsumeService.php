@@ -30,6 +30,10 @@ class ConsumeService
             $data = json_decode($msg->body, true);
             $logger = new LogsService();
             $response = $logger->store($data['cluster'], $data['msg']);
+            preg_match("/code=(\d\d\d)/", $data['msg'], $matches);
+            if (isset($matches[1])){
+                $logger->store($data['cluster'], (int)$matches[1], 'error-code');
+            }
             dump($data);
             echo $response."\n";
         };
