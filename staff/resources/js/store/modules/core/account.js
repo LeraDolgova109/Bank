@@ -1,4 +1,5 @@
 import axios from "axios";
+import { generateKey } from "../../../components/helpers/keys";
 export default {
     state: {
         accounts: [],
@@ -43,7 +44,8 @@ export default {
             axios.get('https://gate/api/customer/' + data, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)

@@ -25,7 +25,22 @@ class LoanResource extends JsonResource
             'repayment_account' => $this->repayment_account,
             'term' => $this->term,
             'min_payment' => $this->min_payment,
+            'debt_amount' => $this->amount,//ToDo fix
             'rate' => RateResource::make($this->rate),
+            'payments' => [
+                [
+                    'transaction_id' => 123,
+                    'amount' => 3450,
+                    'status' => 'expired',
+                    'date' => '2024-04-18'
+                ],
+                [
+                    'transaction_id' => 148,
+                    'amount' => 3450,
+                    'status' => 'success',
+                    'date' => '2024-04-18'
+                ],
+            ],
         ];
     }
 }

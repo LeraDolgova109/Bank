@@ -5,7 +5,7 @@
             <router-view></router-view>
         </div>
         <div class="col-9">
-            <h3>Клиент #{{ customer.id }}</h3>
+            <h3 class="col-9">Клиент #{{ customer.id }}</h3>
             <div class="btn-group">
                 <button type="button" class="btn btn-info" @click="showDialogUser">Пользователь</button>
                 <button type="button" class="btn btn-warning" @click="showDialog">Блокировка</button>
@@ -14,7 +14,14 @@
             <customer-delete v-model:show="dialogUpdate" v-model:customer="customer"/>
             <h2 class="container">Счета</h2>
             <account-table v-model:accounts="accounts" v-model:hidden="hidden"/>
-            <h2 class="container">Кредиты</h2>
+            <div class="container row justify-content-between">
+                <h4 class="col-5">Кредиты</h4>
+                <h4 class="col-2">
+                    Кредитный рейтинг: 
+                    <div v-if="rating> 50" class="text-success">{{ rating }}</div>
+                    <div v-else class="text-danger">{{ rating }}</div>
+                </h4>
+            </div>
             <credit-table/>
         </div>
     </div>
@@ -42,6 +49,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch('getCustomer', this.$route.params.id);
+        this.$store.dispatch('getRating', this.$route.params.id);
         this.$store.dispatch('getAccounts', this.$route.params.id);
         this.$store.dispatch('getHidden');
         this.$store.dispatch('getCustomerCredits', this.$route.params.id);
@@ -56,6 +64,9 @@ export default {
         hidden() {
             return this.$store.getters.getHidden;
         },
+        rating() {
+            return this.$store.getters.getRating;
+        }
     },
 }
 </script>

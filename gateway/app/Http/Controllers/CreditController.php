@@ -20,7 +20,12 @@ class CreditController extends Controller
         $credits = $service->get_credit_info($request->bearerToken(), $id);
         return response() -> json($credits);
     }
-
+    public function rating(Request $request, $id)
+    {
+        $service = new CreditService();
+        $credits = $service->get_rating($request->bearerToken(), $id);
+        return response() -> json($credits);
+    }
     public function customer(Request $request, $id)
     {
         $service = new CreditService();

@@ -9,6 +9,7 @@ use App\Models\Ban;
 use App\Models\Passport;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,15 @@ class AuthController extends Controller
 {
     public function index()
     {
-        return User::with(['passport', 'roles'])->get();
+        try {
+            $users = User::with(['passport', 'roles'])->get();
+            $logsService = new \App\Services\LogsService();
+            $logsService->send('info', 'Success', 200);
+            return $users;
+        } catch (Exception $e) {
+            $logsService = new \App\Services\LogsService();
+            $logsService->send('error', $e, $e->getCode());
+        }
     }
 
     public function login(LoginRequest $request)

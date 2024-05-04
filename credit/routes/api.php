@@ -35,3 +35,7 @@ Route::prefix('loan')->group(function (){
 Route::prefix('customer')->group(function (){
     Route::get('/{customer_id}/loan', [LoanController::class, 'index']);
 });
+
+Route::get('rating/{customer_id}', function (){
+    return response(['rating' => rand(10, 100)], 200);
+});

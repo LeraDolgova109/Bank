@@ -24,6 +24,7 @@ import UserUpdate from "./modals/User/UserUpdate.vue";
 import UserDelete from "./modals/User/UserDelete.vue";
 import UserInfo from "./modals/User/UserInfo.vue";
 import TransactionInfo from "./modals/Transaction/TransactionInfo.vue";
+import PaymentInfo from "./modals/Transaction/PaymentInfo.vue";
 
 
 export default [
@@ -52,5 +53,6 @@ export default [
     UserUpdate,
     UserDelete,
     UserInfo,
-    TransactionInfo
+    TransactionInfo,
+    PaymentInfo
 ]
