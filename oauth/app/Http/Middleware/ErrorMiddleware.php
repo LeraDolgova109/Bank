@@ -17,10 +17,14 @@ class ErrorMiddleware
     {
         if(date("i",time()) % 2 == 0 && rand(0,100) >= 10)
         {
+            $logsService = new \App\Services\LogsService();
+            $logsService->send('error', 'Internal Server Error', 500);
             abort(500, 'Internal Server Error');
         }
         else if (rand(0,100) >= 50)
         {
+            $logsService = new \App\Services\LogsService();
+            $logsService->send('error', 'Internal Server Error', 500);
             abort(500, 'Internal Server Error');
         }
 

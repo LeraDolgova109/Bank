@@ -40,6 +40,7 @@ abstract class ApiService
         $headers['Accept'] = 'application/json';
         $headers['Content-Type'] = 'application/json';
         $headers['Authorization'] = 'Bearer ' . $token;
+        $headers['Idempotency-key'] = getallheaders()['Idempotency-key'];
         $body = $data;
         $response = $this->retry($method, $import, $path, $headers, $body);
         $data = json_decode($response->getBody()->getContents());
