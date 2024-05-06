@@ -1,5 +1,6 @@
 import axios from "axios";
 import Pusher from 'pusher-js';
+import { generateKey } from "../../../components/helpers/keys";
 
 export default {
     state: {
@@ -34,7 +35,8 @@ export default {
             axios.get('https://gate/api/account/'+ data.id + '/transaction', {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)

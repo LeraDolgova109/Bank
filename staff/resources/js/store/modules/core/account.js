@@ -153,7 +153,8 @@ export default {
             axios.get('https://gate/api/currency', {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)

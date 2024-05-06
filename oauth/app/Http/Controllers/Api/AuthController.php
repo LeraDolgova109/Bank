@@ -13,7 +13,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 class AuthController extends Controller
 {
     public function index()
@@ -21,17 +20,16 @@ class AuthController extends Controller
         try {
             $users = User::with(['passport', 'roles'])->get();
             $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'Success', 200);
+            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
             return $users;
         } catch (Exception $e) {
             $logsService = new \App\Services\LogsService();
-            $logsService->send('error', $e, $e->getCode());
+            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
         }
     }
 
     public function login(LoginRequest $request)
     {
-        
         $data = $request->validated();
         $credentials = [
             'email' => $data['email'],
@@ -86,6 +84,14 @@ class AuthController extends Controller
 
     public function show($id)
     {
-        return User::with(['passport', 'roles'])->where('id', '=', $id)->first();
+        try {
+            $user = User::with(['passport', 'roles'])->where('id', '=', $id)->first();
+            $logsService = new \App\Services\LogsService();
+            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            return $user;
+        } catch (Exception $e) {
+            $logsService = new \App\Services\LogsService();
+            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+        }
     }
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { generateKey } from "../../../components/helpers/keys";
 export default {
     state: {
         rates: []
@@ -25,7 +26,8 @@ export default {
             axios.get('https://gate/api/rate', {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -45,7 +47,8 @@ export default {
             }, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -67,7 +70,8 @@ export default {
             }, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -83,7 +87,8 @@ export default {
             axios.delete('https://gate/api/rate/' + data.id, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
