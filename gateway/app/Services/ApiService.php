@@ -9,11 +9,15 @@ abstract class ApiService
 {
     protected int $attemps = 0;
     protected string $endpoint;
-
+    public function generate_id()
+    {
+        return (string) \Illuminate\Support\Str::uuid(); 
+    }
     public function retry($method, $import, $path, $headers, $body)
     {
         Sleep::for(1)->seconds();
         try {
+            $headers['trace-id'] = $this->generate_id();
             if ($method == 'POST' || $method == 'PUT') {
                 return $import->client->request($method, $this->endpoint . $path, array('headers' => $headers, 'body' => $body));
                 
@@ -23,9 +27,15 @@ abstract class ApiService
             }
         }
         catch (RequestException $e) {
-            if ($e->getCode() == 500 && $this->attemps == 7)
+            if ($e->getCode() == 500 && $this->attemps <= 7)
             {
                 $this->attemps += 1;
+                $this->retry($method, $import, $path, $headers, $body);
+            }
+            else if ($e->getCode() == 500)
+            {
+                Sleep::for(10)->seconds();
+                $this->attemps == 0;
                 $this->retry($method, $import, $path, $headers, $body);
             }
             $response = $e->getResponse();

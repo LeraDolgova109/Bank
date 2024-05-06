@@ -1,4 +1,5 @@
 import axios from "axios";
+import { generateKey } from "../../../components/helpers/keys";
 export default {
     state: {
         credits: [],
@@ -52,7 +53,8 @@ export default {
             axios.get('https://gate/api/loan', {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -68,7 +70,8 @@ export default {
             axios.get('https://gate/api/loan/' + id, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -85,7 +88,8 @@ export default {
             axios.get('https://gate/api/customer/' + id + '/loan', {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -101,7 +105,8 @@ export default {
             axios.get('https://gate/api/rating/' + id, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
@@ -136,7 +141,8 @@ export default {
             }, {
                 headers: {
                     "Content-type": "application/json",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)

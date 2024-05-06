@@ -40,7 +40,7 @@ export default {
                 headers: {
                     "Content-type": "application/json",
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                    'X-Idempotency-key': generateKey()
+                    'Idempotency-key': generateKey()
                 }
             }).then(response => {
                 if (response.status === 200)
