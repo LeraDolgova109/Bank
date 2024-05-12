@@ -5,8 +5,5 @@ use Illuminate\Support\Str;
 
 class TraceService
 {
-   public function generate_id()
-   {
-    return (string) Str::uuid(); 
-   }
+   
 }
