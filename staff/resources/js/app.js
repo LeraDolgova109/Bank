@@ -15,5 +15,4 @@ components.forEach(component => {
 app
     .use(store)
     .use(router)
-    .use (firebase)
     .mount('#app');
