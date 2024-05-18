@@ -18,5 +18,6 @@
 <script src="https://js.pusher.com/8.0.1/pusher.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js"></script>
+
 </body>
 </html>

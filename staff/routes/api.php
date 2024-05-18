@@ -27,3 +27,5 @@ Route::group(['prefix' => 'staffs'], function (){
 Route::group(['prefix' => 'roles'], function (){
     Route::get('/', [\App\Http\Controllers\RoleController::class, 'index']);
 });
+Route::post('/save_token', [\App\Http\Controllers\StaffController::class, 'saveToken']);
+Route::get('/devices', [\App\Http\Controllers\StaffController::class, 'getDevices']);

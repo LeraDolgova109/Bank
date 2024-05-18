@@ -19,6 +19,7 @@
         "vue": "^3.4.21"
     },
     "dependencies": {
+        "@firebase/messaging": "^0.12.9",
         "bootstrap-vue": "^2.23.1",
         "cors": "^2.8.5",
         "express": "^4.19.2",
