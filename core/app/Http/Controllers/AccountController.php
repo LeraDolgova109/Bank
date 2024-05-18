@@ -12,6 +12,7 @@ use App\Http\Resources\TransactionResource;
 use App\Models\Account;
 use App\Models\AccountType;
 use App\Models\Transaction;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Nette\Utils\Type;
 
@@ -42,6 +43,8 @@ class AccountController extends Controller
     {
         $data = $request->all();
         $account->replenish($data['amount'], $data['add_info']);
+        $service = new FirebaseService();
+        $service->sendNotification($request, $account->id);
         return response(['message' => 'Success'], 200);
     }
 
@@ -49,6 +52,8 @@ class AccountController extends Controller
     {
         $data = $request->all();
         $account->debit($data['amount'], $data['add_info']);
+        $service = new FirebaseService();
+        $service->sendNotification($request, $account->id);
         return response(['message' => 'Success'], 200);
     }
 

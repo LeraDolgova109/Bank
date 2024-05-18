@@ -11,10 +11,13 @@
             </div>
         </div>
         <button type="button" class="btn btn-primary" @click="saveSettings">Сохранить</button>
+        <button type="button" class="btn btn-info" @click="subscribe">Включить уведомления</button>
     </div>
 </template>
 
 <script>
+import firebaseConfig from "../components/firebase/firebaseConfig";
+
 export default {
     data() {
         return {
@@ -26,6 +29,43 @@ export default {
         {
             this.$store.dispatch('postSettings', this.mode);
         },
+        subscribe()
+        {
+            firebase.initializeApp(firebaseConfig);
+            const messaging = firebase.messaging();
+            messaging
+            .requestPermission()
+            .then(function () {
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                console.log(token);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: '/api/save_token',
+                    type: 'POST',
+                    data: {
+                        token: token
+                    },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        alert('Token saved successfully.');
+                    },
+                    error: function (err) {
+                        console.log('User Chat Token Error'+ err);
+                    },
+                });
+
+            }).catch(function (err) {
+                console.log('User Chat Token Error'+ err);
+            });
+        }
     }
 }
 </script>

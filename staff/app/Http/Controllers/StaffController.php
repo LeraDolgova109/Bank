@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Staff;
 use App\Services\StaffService;
 use Illuminate\Http\Request;
 
@@ -31,9 +32,16 @@ class StaffController extends Controller
       return response() -> json($staff);
    }
 
-   public function update()
+   public function saveToken(Request $request, $id)
    {
-    
+      $staff = Staff::find($id);
+      $staff->update(['device_token'=>$request->token]);
+      return response()->json(['token saved successfully.']);
+   }
+
+   public function getDevices()
+   {
+      return Staff::whereNotNull('device_token')->pluck('device_token')->all();
    }
 
    public function delete($id)
