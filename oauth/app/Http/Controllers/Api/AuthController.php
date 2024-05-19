@@ -19,12 +19,26 @@ class AuthController extends Controller
     {
         try {
             $users = User::with(['passport', 'roles'])->get();
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             return $users;
         } catch (Exception $e) {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            }
+            catch (Exception $e)
+            {
+
+            }
         }
     }
 
@@ -86,12 +100,26 @@ class AuthController extends Controller
     {
         try {
             $user = User::with(['passport', 'roles'])->where('id', '=', $id)->first();
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             return $user;
         } catch (Exception $e) {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            }
+            catch (Exception $e)
+            {
+
+            }
         }
     }
 }

@@ -24,8 +24,15 @@ class RoleController extends Controller
             if (Role::where('user_id', '=', $request->user_id)
                     ->where('role', '=', $request->role)->first() != null)
             {
-                $logsService = new \App\Services\LogsService();
-                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+                try 
+                {
+                    $logsService = new \App\Services\LogsService();
+                    $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+                }
+                catch (Exception $e)
+                {
+
+                }
                 return response() -> json('User already has that role.', 400);
             }
             $role = Role::create([
@@ -33,12 +40,26 @@ class RoleController extends Controller
                 'role' => $request->role
             ]);
             $this->keysService->write(getallheaders()['Idempotency-key'], true);
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             return true;
         } catch (Exception $e) {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            }
+            catch (Exception $e)
+            {
+
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Services\KeysService;
+use Exception;
 
 class KeysMiddleware
 {
@@ -24,9 +25,16 @@ class KeysMiddleware
     {
         $result = $this->keysService->check_key(getallheaders()['Idempotency-key']);
         if ($result != null)
-        {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+        {   
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             abort(200, $result);
         }
         return $next($request);

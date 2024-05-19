@@ -20,12 +20,26 @@ class BanController extends Controller
     {
         try {
             $ban = Ban::where('user_id', '=', $id)->get();
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             return response() -> json ($ban);
         } catch (Exception $e) {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            }
+            catch (Exception $e)
+            {
+
+            }
         }
     }
 
@@ -41,12 +55,26 @@ class BanController extends Controller
             ]);
             $keysService = new KeysService();
             $keysService->write(getallheaders()['Idempotency-key'], true);
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             return true;
         } catch (Exception $e) {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            }
+            catch (Exception $e)
+            {
+
+            }
         }
     }
 
@@ -56,12 +84,26 @@ class BanController extends Controller
                 ->where('role','=', $request->role)
                 ->delete();
             $this->keysService->write(getallheaders()['Idempotency-key'], true);
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('info', 'trace_id: ' . getallheaders()['trace-id'], 200);
+            }
+            catch (Exception $e)
+            {
+
+            }
             return true;
         } catch (Exception $e) {
-            $logsService = new \App\Services\LogsService();
-            $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            try 
+            {
+                $logsService = new \App\Services\LogsService();
+                $logsService->send('error', 'trace_id: ' . getallheaders()['trace-id'], $e->getCode());
+            }
+            catch (Exception $e)
+            {
+
+            }
         }
     }
 }
