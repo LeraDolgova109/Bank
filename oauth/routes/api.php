@@ -36,3 +36,4 @@ Route::middleware('auth:api')->group(function () {
 
 Route::post('/register', [App\Http\Controllers\Api\AuthController::class, 'register']);
 Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
+Route::post('/token', [App\Http\Controllers\Api\AuthController::class, 'login_token']);
