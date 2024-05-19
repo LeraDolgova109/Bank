@@ -1,24 +1,24 @@
 version: "3"
 
 services:
-  nginx:
-    container_name: nginx
-    image: nginx
-    ports:
-      - "89:89"
-    volumes:
-      - ../:/var/www
-      - ./nginx/:/etc/nginx/conf.d
-    links:
-      - logs_app
-
-  logs_app:
-    container_name: logs_app
-    image: logs
-    volumes:
-      - ../logs:/var/www/logs
-    ports:
-      - "9009:9000"
+#  nginx:
+#    container_name: nginx
+#    image: nginx
+#    ports:
+#      - "89:89"
+#    volumes:
+#      - ../:/var/www
+#      - ./nginx/:/etc/nginx/conf.d
+#    links:
+#      - logs_app
+#
+#  logs_app:
+#    container_name: logs_app
+#    image: logs
+#    volumes:
+#      - ../logs:/var/www/logs
+#    ports:
+#      - "9009:9000"
 
   logs_db:
     container_name: logs_db
