@@ -72,6 +72,35 @@ class AuthController extends Controller
         return response() -> json("Wrong email or password.", 400);
     }
 
+    public function login_token(LoginRequest $request)
+    {
+        $data = $request->validated();
+        $credentials = [
+            'email' => $data['email'],
+            'password' => $data['password']
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $ban = Ban::where([
+                ['user_id', '=', $user->id], 
+                ['role', '=', $request->client],        
+            ])->first();
+            if ($ban != null && $ban->end_time > Carbon::now()) 
+            {
+                return response()->json('User is banned due to ' . $ban->end_time 
+                                . ', reason: ' . $ban->reason, 403);
+            }
+            else if ($ban != null)
+            {
+                $ban->delete();
+            }
+            $data['access_token'] = $user->createToken('access_token')->accessToken;
+            return response() -> json($data['access_token']);
+        }    
+        return response() -> json("Wrong email or password.", 400);
+    }
+
     public function register(Request $request)
     {
         $data = $request->all();
