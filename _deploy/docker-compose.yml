@@ -21,6 +21,7 @@ services:
       - "9009:9000"
 
   logs_db:
+    container_name: logs_db
     image: influxdb:latest
     ports:
       - '8086:8086'
@@ -32,6 +33,7 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=admin123
 
   grafana:
+    container_name: grafana
     image: grafana/grafana:latest
     ports:
       - '3000:3000'
@@ -42,6 +44,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin123
 
   rabbitmq:
+    container_name: rabbitmq
     image: rabbitmq:3.10.7-management
     hostname: rabbitmq
     restart: always
