@@ -20,6 +20,45 @@ services:
     ports:
       - "9009:9000"
 
+  logs_db:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=logs
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin123
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin123
+    volumes:
+      - rabbitmq-storage:/var/lib/rabbitmq
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+
+volumes:
+  influxdb-storage:
+  grafana-storage:
+  rabbitmq-storage:
+
 #  app:#    container_name: app
 #    build: ../modules/backend/_docker
 #    volumes:
