@@ -14,16 +14,16 @@ class FirebaseService
     }
     public function sendNotification(Request $request, string $id)
     {
-        $firebaseToken = $this->getAllStaff();
-        if ($firebaseToken == null)
-        {
-            return;
-        }
+        // $firebaseToken = $this->getAllStaff();
+        // if ($firebaseToken == null)
+        // {
+        //     return;
+        // }
 
         $SERVER_API_KEY = 'AAAAyzXj8Ts:AAAAmkRzoKs:APA91bHTFpc0XdNPfhWJtWl3V-jC-4EmbiDGoYdjOGQUfw-L7IIyW47bdaWL-U6kljvwqNKJMDoBsaqdpub6-P3ksIitQFHGOhLEmOToFvWv-Nhmspw-1qxfKzb7vdM9nsEPkf67IsBP';
 
         $data = [
-            "registration_ids" => $firebaseToken,
+            "registration_ids" => ["dlER2r57TiyUDLzQq_1NjK:APA91bGN_CLVdUQ5PujsjxDqUj0PlVbjo9ehAK39EiRYmUySX5X5JqI79DmNYTwRiaVFb3X86UsbPcF1-xvyLwQkvpyHhQw6hmof4jPjoKr16s8GZQk6qZ_c6hMvG8lc7ZMZCX8hpYE6"],
             "notification" => [
                 "title" => $id,
                 "body" => $request->amount,
