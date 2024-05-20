@@ -8,7 +8,7 @@ use InfluxDB2\Point;
 
 class LogsService
 {
-    public function store(string $measurement, string $info){
+    public function store(string $measurement, $info, string $field = 'info'){
         $client = new Client([
             'url' => env('INFLUXDB_HOST'),
             'token' => env('INFLUXDB_TOKEN'),
@@ -20,7 +20,7 @@ class LogsService
         $writeApi = $client->createWriteApi();
 
         $point = Point::measurement($measurement)
-            ->addField('info', $info)
+            ->addField($field, $info)
             ->time(time());
 
         try {

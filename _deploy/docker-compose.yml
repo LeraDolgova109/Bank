@@ -1,24 +1,66 @@
 version: "3"
 
 services:
-  nginx:
-    container_name: nginx
-    image: nginx
-    ports:
-      - "89:89"
-    volumes:
-      - ../:/var/www
-      - ./nginx/:/etc/nginx/conf.d
-    links:
-      - logs_app
+#  nginx:
+#    container_name: nginx
+#    image: nginx
+#    ports:
+#      - "89:89"
+#    volumes:
+#      - ../:/var/www
+#      - ./nginx/:/etc/nginx/conf.d
+#    links:
+#      - logs_app
+#
+#  logs_app:
+#    container_name: logs_app
+#    image: logs
+#    volumes:
+#      - ../logs:/var/www/logs
+#    ports:
+#      - "9009:9000"
 
-  logs_app:
-    container_name: logs_app
-    image: logs
-    volumes:
-      - ../logs:/var/www/logs
+  logs_db:
+    container_name: logs_db
+    image: influxdb:latest
     ports:
-      - "9009:9000"
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=logs
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin123
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.10.7-management
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin123
+    volumes:
+      - rabbitmq-storage:/var/lib/rabbitmq
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+
+volumes:
+  influxdb-storage:
+  grafana-storage:
+  rabbitmq-storage:
 
 #  app:#    container_name: app
 #    build: ../modules/backend/_docker

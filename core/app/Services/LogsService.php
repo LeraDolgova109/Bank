@@ -15,7 +15,7 @@ class LogsService
     public function send(string $level, string $message, $code = null){
         $data = [
             'cluster' => self::CLUSTER,
-            'msg' => 'lvl='.$level.' '. ($code ? 'code='.$code : '') . 'msg="'. $message . '"'
+            'msg' => 'lvl='.$level.' '. ($code ? 'code='.$code : '') . ' msg="'. $message . '"'
         ];
         $this->mbService->publish($data, 'logs');
     }
